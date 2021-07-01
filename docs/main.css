@@ -1,0 +1,28 @@
+.header {
+  padding: 10px;
+  text-align: center;
+  color: black;
+  background-color: lightgrey;
+}
+
+.content {
+  padding: 10px;
+  text-align: center;
+}
+
+.inputtext {
+  padding: 2px;
+  min-width: 60%;
+  min-height: 100px;
+}
+
+.rendered {
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding: 4px;
+  padding-left: 10px;
+  outline: 1px solid lightgrey;
+  min-height: 100px;
+}
