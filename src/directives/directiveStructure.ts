@@ -109,7 +109,9 @@ export interface IDirectiveData {
 }
 
 /** Raise on parsing/validation error. */
-export class DirectiveParsingError extends Error {}
+export class DirectiveParsingError extends Error {
+  name = "DirectiveParsingError"
+}
 
 /**
  * This function contains the logic to take the first line of a directive,

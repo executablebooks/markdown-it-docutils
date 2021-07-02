@@ -38,14 +38,15 @@ export default function docutilsPlugin(md: MarkdownIt, options?: IOptions): void
   // fallback renderer for unhandled directives
   md.renderer.rules["directive"] = (tokens, idx) => {
     const token = tokens[idx]
-    // TODO: improve, and add default CSS?
     return `<aside class="directive-unhandled">\n<header><mark>${token.info}</mark><code> ${token.meta.arg}</code></header>\n<pre>${token.content}</pre></aside>\n`
   }
   md.renderer.rules["directive_error"] = (tokens, idx) => {
     const token = tokens[idx]
-    // TODO: improve, and add default CSS?
-    // TODO add error name & message
-    return `<aside class="directive-error">\n<header><mark>${token.info}</mark><code> ${token.meta.arg}</code></header>\n<pre>${token.content}</pre></aside>\n`
+    let content = ""
+    if (token.content) {
+      content = `\n---\n${token.content}`
+    }
+    return `<aside class="directive-error">\n<header><mark>${token.info}</mark><code> ${token.meta.arg}</code></header>\n<pre>${token.meta.error_name}:\n${token.meta.error_message}\n${content}</pre></aside>\n`
   }
 }
 
