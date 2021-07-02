@@ -27,6 +27,7 @@ In the browser:
         <title>Example Page</title>
         <script src="https://cdn.jsdelivr.net/npm/markdown-it@12/dist/markdown-it.min.js"></script>
         <script src="https://unpkg.com/markdown-it-docutils"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="https://unpkg.com/markdown-it-docutils/dist/css/style.min.css" />
     </head>
     <body>
         <div id="demo"></div>
