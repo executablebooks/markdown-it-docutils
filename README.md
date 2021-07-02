@@ -74,6 +74,7 @@ Admonitions:
 
 ## TODO
 
+- Roles
 - Bundle default CSS
 - Handle directive options
 
