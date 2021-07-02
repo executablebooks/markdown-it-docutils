@@ -24,13 +24,14 @@
     }
   },
   "scripts": {
-    "format": "prettier --write src/**/*.ts tests/**/*.ts",
+    "format": "prettier --write src/**/*.ts tests/**/*.ts src/**/*.scss",
     "lint": "eslint -c .eslintrc.yml --max-warnings 1 src/**/*.ts tests/**/*.ts",
     "lint:fix": "eslint -c .eslintrc.yml --fix src/**/*.ts tests/**/*.ts",
     "test": "jest",
     "test:cov": "jest --coverage",
+    "sass": "sass --style=compressed --no-source-map src/style/index.sass dist/css/style.min.css",
     "prebuild": "rm -rf dist",
-    "build": "rollup -c rollup.config.js; sass --style=compressed src/style.css dist/css/style.min.css",
+    "build": "rollup -c rollup.config.js; npm run sass",
     "prepublishOnly": "npm run build"
   },
   "jest": {
