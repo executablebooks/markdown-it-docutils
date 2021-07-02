@@ -12,15 +12,15 @@
 
 .inputtext {
   padding: 2px;
-  min-width: 60%;
+  min-width: 70%;
   min-height: 100px;
 }
 
 .rendered {
   text-align: left;
   margin-top: 10px;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 15%;
+  margin-right: 15%;
   padding: 4px;
   padding-left: 10px;
   outline: 1px solid lightgrey;
