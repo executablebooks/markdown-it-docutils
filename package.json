@@ -30,7 +30,7 @@
     "test": "jest",
     "test:cov": "jest --coverage",
     "prebuild": "rm -rf dist",
-    "build": "rollup -c rollup.config.js",
+    "build": "rollup -c rollup.config.js; sass --style=compressed src/style.css dist/css/style.min.css",
     "prepublishOnly": "npm run build"
   },
   "jest": {
@@ -69,6 +69,7 @@
     "rollup": "^2.52.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
+    "sass": "^1.35.1",
     "ts-jest": "^26.4.4",
     "typescript": "^4.3.4"
   }

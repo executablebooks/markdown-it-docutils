@@ -75,7 +75,7 @@ Admonitions:
 ## TODO
 
 - Roles
-- Bundle default CSS
+- Bundle default CSS (use SASS?, use rollup-plugin-scss?)
 - Handle directive options
 
 ## Development
