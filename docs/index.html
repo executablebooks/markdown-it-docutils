@@ -1,51 +1,74 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Plugin Demonstration</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@12/dist/markdown-it.min.js"></script>
-    <script src="https://unpkg.com/markdown-it-plugin-template"></script>
+    <script src="https://unpkg.com/markdown-it-docutils"></script>
+    <!-- <script src="../dist/umd/index.js"></script> -->
   </head>
   <body>
     <div class="main">
       <div class="header">
-        <h1>markdown-it-plugin-template</h1>
+        <h1>markdown-it-docutils</h1>
       </div>
       <div class="content">
         <p>
           This is a minimalist demonstration of the
-          <a href="https://github.com/executablebooks/markdown-it-plugin-template">markdown-it-plugin-template</a> plugin.
+          <a href="https://github.com/executablebooks/markdown-it-docutils"
+            >markdown-it-docutils</a
+          >
+          plugin.
         </p>
         <p>
-          Simply write in the text box below, then click away, and the text will be rendered.
+          Simply write in the text box below, then click away, and the text will be
+          rendered.
         </p>
-        <textarea id="inputtext" class="inputtext">
-# Title
+        <textarea id="inputtext" class="inputtext" rows="18">
+Unhandled directive:
 
-Hallo world, paragraph in **blue**!</textarea>
+```{unknown} argument
+content
+```
+
+Admonition with title
+
+```{admonition} A **Title**
+Some *content*
+```
+
+Nested admonitions:
+
+````{note} This is a note
+```{warning} This is a nested warning
+```
+````</textarea
+        >
         <div id="renderer" class="rendered"></div>
       </div>
     </div>
-    <noscript>You need to enable JavaScript to run this app!
-    </noscript>
+    <noscript>You need to enable JavaScript to run this app! </noscript>
     <script>
       // get elements
-      var inputText = document.getElementById("inputtext");
+      var inputText = document.getElementById("inputtext")
       var renderer = document.getElementById("renderer")
 
       // setup change handler
-      inputText.onchange = handleChange;
+      inputText.onchange = handleChange
       function handleChange(e) {
-        const text = window.markdownit().use(window.markdownitExample).render(e.target.value);
+        const text = window
+          .markdownit()
+          .use(window.markdownitDocutils)
+          .render(e.target.value)
         renderer.innerHTML = text
       }
 
       // trigger change handler for first render
-      const event = new Event("change");
-      inputText.dispatchEvent(event);
+      const event = new Event("change")
+      inputText.dispatchEvent(event)
     </script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 /* eslint-disable jest/valid-title */
 import fs from "fs"
 import MarkdownIt from "markdown-it"
-import example_plugin from "../src"
+import docutils_plugin from "../src"
 
 /** Read a "fixtures" file, containing a set of tests:
  *
@@ -20,8 +20,9 @@ function readFixtures(name: string): string[][] {
 
 describe("Parses basic", () => {
   readFixtures("basic").forEach(([name, text, expected]) => {
-    const mdit = MarkdownIt().use(example_plugin)
+    const mdit = MarkdownIt().use(docutils_plugin)
     const rendered = mdit.render(text)
-    it(name, () => expect(rendered).toEqual(`${expected}\n`))
+    // console.log(rendered)
+    it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
   })
 })

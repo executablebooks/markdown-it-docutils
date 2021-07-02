@@ -1,11 +1,11 @@
-# Markdown-It Plugin Template
+# markdown-it-docutils [IN-DEVELOPMENT]
 
 [![ci-badge]][ci-link]
 [![npm-badge]][npm-link]
 
-A template for creating a [markdown-it](https://github.com/markdown-it/markdown-it) plugin.
+A [markdown-it](https://github.com/markdown-it/markdown-it) plugin for implementing docutils style roles and directives.
 
-See <https://executablebooks.github.io/markdown-it-plugin-template/> for a demonstration!
+See <https://executablebooks.github.io/markdown-it-docutils/> for a demonstration!
 
 ## Usage
 
@@ -13,9 +13,9 @@ As a Node module:
 
 ```javascript
 import MarkdownIt from "markdown-it"
-import examplePlugin from "markdown-it-plugin-template"
+import docutilsPlugin from "markdown-it-docutils"
 
-const text = MarkdownIt().use(examplePlugin).render("*a*")
+const text = MarkdownIt().use(docutilsPlugin).render("*a*")
 ```
 
 In the browser:
@@ -26,17 +26,56 @@ In the browser:
     <head>
         <title>Example Page</title>
         <script src="https://cdn.jsdelivr.net/npm/markdown-it@12/dist/markdown-it.min.js"></script>
-        <script src="https://unpkg.com/markdown-it-plugin-template"></script>
+        <script src="https://unpkg.com/markdown-it-docutils"></script>
     </head>
     <body>
         <div id="demo"></div>
         <script>
-            const text = window.markdownit().use(window.markdownitExample).render("*a*");
+            const text = window.markdownit().use(window.markdownitDocutils).render("*a*");
             document.getElementById("demo").innerHTML = text
         </script>
     </body>
 </html>
 ```
+
+## Supported Directives
+
+Directives are any token in the token stream with the `directive` type:
+
+- `Token.info` should contain the name of the directive
+- `Token.meta = { arg: "" }` should contain the argument (first line) of the directive
+- `Token.content` should contain the body of the directive
+- `Token.map` should be set
+
+By default (see `replaceFences` option), all fences with a language delimited in braces will be converted to `directive` tokens, e.g.
+
+````
+```{name} argument
+:option: value
+
+content
+```
+````
+
+Admonitions:
+
+- admonition
+- note
+- attention
+- caution
+- danger
+- error
+- important
+- hint
+- note
+- seealso
+- tip
+- warning
+
+## TODO
+
+- Bundle default CSS
+- Handle directive options
 
 ## Development
 
@@ -75,36 +114,10 @@ Finally, you can update the version of your package, e.g.: `npm version patch -m
 Finally, you can adapt the HTML document in `docs/`, to load both markdown-it and the plugin (from [unpkg]), then render text from an input area.
 This can be deployed by [GitHub Pages].
 
-## Design choices
-
-### Why is markdown-it only in devDependencies?
-
-From the [markdown-it development recommendations](https://github.com/markdown-it/markdown-it/blob/master/docs/development.md):
-
-> Plugins should not require the `markdown-it` package as a dependency in `package.json`.
-
-Note, for typing, we import this package with `import type`, to ensure the imports are not present in the compiled JavaScript.
-
-### Why Jest?
-
-There are a number of JavaScript unit testing frameworks (see [this comparison](https://raygun.com/blog/javascript-unit-testing-frameworks/), but [jest] was chosen because of it is easy to setup/use, flexible, and well used in large projects.
-
-### Why Rollup?
-
-The three main bundlers are; Webpack, Rollup and Parcel, with the functionality gap between all of these bundlers narrowing over the years.
-Essentially, Rollup provides a middle ground between features and complexity, and is good for bundling libraries (it is what `markdown-it` itself [uses](https://github.com/markdown-it/markdown-it/blob/064d602c6890715277978af810a903ab014efc73/support/rollup.config.js)).
-
-See for example:
-
-- <https://medium.com/@PepsRyuu/why-i-use-rollup-and-not-webpack-e3ab163f4fd3>
-- <https://medium.com/js-imaginea/comparing-bundlers-webpack-rollup-parcel-f8f5dc609cfd>
-- <https://betterprogramming.pub/the-battle-of-bundlers-6333a4e3eda9>
-
-
-[ci-badge]: https://github.com/executablebooks/markdown-it-plugin-template/workflows/CI/badge.svg
-[ci-link]: https://github.com/executablebooks/markdown-it--plugin-template/actions
-[npm-badge]: https://img.shields.io/npm/v/markdown-it-plugin-template.svg
-[npm-link]: https://www.npmjs.com/package/markdown-it-plugin-template
+[ci-badge]: https://github.com/executablebooks/markdown-it-docutils/workflows/CI/badge.svg
+[ci-link]: https://github.com/executablebooks/markdown-it-docutils/actions
+[npm-badge]: https://img.shields.io/npm/v/markdown-it-docutils.svg
+[npm-link]: https://www.npmjs.com/package/markdown-it-docutils
 
 [GitHub Actions]: https://docs.github.com/en/actions
 [GitHub Pages]: https://docs.github.com/en/pages
