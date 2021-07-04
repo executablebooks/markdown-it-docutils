@@ -1,19 +1,16 @@
-.directive-unhandled
+.directive-unhandled, .directive-error
     margin: 4px
     padding: 4px
     outline: 1px solid lightgrey
+    overflow: scroll
 
     mark
         text-decoration-line: underline
         background-color: unset
         color: unset
+
+.directive-unhandled
+    outline: 1px solid lightgrey
 
 .directive-error
-    margin: 4px
-    padding: 4px
     outline: 1px solid lightcoral
-
-    mark
-        text-decoration-line: underline
-        background-color: unset
-        color: unset
