@@ -73,6 +73,13 @@ Admonitions:
 - tip
 - warning
 
+## Design Notes
+
+TODO improve this:
+
+- Parsing all directives/roles to "generic" directive/role tokens first (with fallback renderer), then "run" the directives/roles
+  - this separates the logic for parsing these syntaxes, from the logic for interpreting their content, i.e. the syntax for a directive/role can in theory be anything, as long as it can be converted to the necessary token
+
 ## TODO
 
 - Roles

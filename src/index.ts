@@ -2,6 +2,7 @@ import type MarkdownIt from "markdown-it/lib"
 import type StateCore from "markdown-it/lib/rules_core/state_core"
 import { admonitions } from "./directives/admonitions"
 import directiveToData, { Directive } from "./directives/directiveStructure"
+import rolePlugin from "./roles/main"
 
 export interface IOptions {
   /** Replace fence tokens with directive tokens, if there language is of the form `{name}` */
@@ -24,6 +25,9 @@ const OptionDefaults: IOptions = {
  */
 export default function docutilsPlugin(md: MarkdownIt, options?: IOptions): void {
   const fullOptions = { ...OptionDefaults, ...options }
+
+  rolePlugin(md)
+
   let after = fullOptions.directivesAfter || "block"
   if (fullOptions.replaceFences) {
     md.core.ruler.after(after, "fence_to_directive", replaceFences)

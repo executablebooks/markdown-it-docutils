@@ -31,3 +31,10 @@ directive-nested-admonition
 <aside class="admonition warning"><div class="admonition-title">Warning</div><div class="admonition-body"><p>This is a nested warning</p>
 <div></aside><div></aside>
 .
+
+role-unhandled
+.
+A role {name}`content` in paragraph
+.
+<p>A role <span class="role-unhandled"><mark>name</mark><code>content</code></span> in paragraph</p>
+.

@@ -1,16 +1,30 @@
 .directive-unhandled, .directive-error
-    margin: 4px
-    padding: 4px
+    margin: 1rem auto
+    padding: 0.5rem
     outline: 1px solid lightgrey
+    border-radius: 0.2rem
     overflow: scroll
 
+    // First element should have no margin, since the title has it.
+    > :nth-child(2)
+        margin-top: 0
+
+    // Last item should have no margin, since we'll control that w/ padding
+    > :last-child
+        margin-bottom: 0
+
+    header
+        margin-bottom: 0.5rem
+
+    // The name of the directive
     mark
         text-decoration-line: underline
         background-color: unset
-        color: unset
+        color: black
 
 .directive-unhandled
     outline: 1px solid lightgrey
 
 .directive-error
     outline: 1px solid lightcoral
+    background-color: rgba(255, 0, 0, 0.1) 
