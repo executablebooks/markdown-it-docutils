@@ -5,6 +5,9 @@
     border-radius: 0.2rem
     overflow: auto
 
+    // text color
+    color: var(--color-foreground-primary)
+
     // First element should have no margin, since the title has it.
     > :nth-child(2)
         margin-top: 0
@@ -24,7 +27,8 @@
 
 .directive-unhandled
     outline: 0.0625rem solid lightgrey
+    background-color: var(--color-directive-unhandled-background)
 
 .directive-error
     outline: 0.0625rem solid lightcoral
-    background-color: rgba(255, 0, 0, 0.1) 
+    background-color: var(--color-directive-error-background)

@@ -16,7 +16,7 @@ directive-admonition
 Some *content*
 ```
 .
-<aside class="admonition "><div class="admonition-title">A <strong>Title</strong></div><div class="admonition-body"><p>Some <em>content</em></p>
+<aside class="admonition "><p class="admonition-title">A <strong>Title</strong></p><div class="admonition-body"><p>Some <em>content</em></p>
 <div></aside>
 .
 
@@ -27,8 +27,8 @@ directive-nested-admonition
 ```
 ````
 .
-<aside class="admonition note"><div class="admonition-title">Note</div><div class="admonition-body"><p>This is a note</p>
-<aside class="admonition warning"><div class="admonition-title">Warning</div><div class="admonition-body"><p>This is a nested warning</p>
+<aside class="admonition note"><p class="admonition-title">Note</p><div class="admonition-body"><p>This is a note</p>
+<aside class="admonition warning"><p class="admonition-title">Warning</p><div class="admonition-body"><p>This is a nested warning</p>
 <div></aside><div></aside>
 .
 

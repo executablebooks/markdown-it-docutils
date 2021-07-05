@@ -26,6 +26,16 @@ $admonitions: (
   // Base Colors
   --color-foreground-primary: black; // for main text and headings
 
+  // Icons
+  @each $name, $glyph in $icons {
+    --icon-#{$name}: #{$glyph};
+  }
+  --icon-admonition-default: var(--icon-#{nth($admonition-default, 2)});
+
+  // Directives
+  --color-directive-unhandled-background: transparent;
+  --color-directive-error-background: rgba(255, 0, 0, 0.1);
+
   // Admonitions
   --admonition-font-size: 0.8125rem;
   --admonition-title-font-size: 0.8125rem;
@@ -44,6 +54,10 @@ $admonitions: (
   :root {
     // Base Colors
     --color-foreground-primary: #ffffffd9; // for main text and headings
+
+    // Directives
+    --color-directive-unhandled-background: #333338;
+    --color-directive-error-background: rgba(180, 6, 6, 0.8);
 
     // Admonitions
     --color-admonition-background: #18181a;

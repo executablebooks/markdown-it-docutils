@@ -26,3 +26,15 @@
   outline: 1px solid lightgrey;
   min-height: 100px;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #2a2a2c;
+    color: #ffffffd9;
+  }
+
+  .inputtext {
+    background-color: #2a2a2c;
+    color: #ffffffd9;
+  }
+}

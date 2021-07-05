@@ -25,7 +25,7 @@ class BaseAdmonition extends Directive {
     }
     newTokens.push(adToken)
 
-    const adTokenTitle = new this.state.Token("open_admonition_title", "div", 1)
+    const adTokenTitle = new this.state.Token("open_admonition_title", "p", 1)
     adTokenTitle.attrSet("class", "admonition-title")
     newTokens.push(adTokenTitle)
 
@@ -37,7 +37,7 @@ class BaseAdmonition extends Directive {
     titleToken.children = []
     newTokens.push(titleToken)
 
-    newTokens.push(new this.state.Token("close_admonition_title", "div", -1))
+    newTokens.push(new this.state.Token("close_admonition_title", "p", -1))
 
     const adTokenBody = new this.state.Token("open_admonition_body", "div", 1)
     adTokenBody.map = [data.map[0] + data.bodyOffset, data.map[1]]
