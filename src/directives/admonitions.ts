@@ -1,6 +1,6 @@
 import type Token from "markdown-it/lib/token"
-import { class_option, unchanged } from "./directiveOptions"
-import { Directive, IDirectiveData } from "./directiveStructure"
+import { class_option, unchanged } from "./options"
+import { Directive, IDirectiveData } from "./main"
 
 class BaseAdmonition extends Directive {
   public final_argument_whitespace = true

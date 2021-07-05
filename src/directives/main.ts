@@ -8,7 +8,7 @@
 import yaml from "js-yaml"
 import type StateCore from "markdown-it/lib/rules_core/state_core"
 import type Token from "markdown-it/lib/token"
-import { OptionSpecConverter } from "./directiveOptions"
+import { OptionSpecConverter } from "./options"
 import { nestedCoreParse } from "../nestedCoreParse"
 
 /** token specification for a directive */
@@ -70,6 +70,7 @@ export interface IDirectiveSpec {
   }
 }
 
+/** A class to define a single directive */
 export class Directive implements IDirectiveSpec {
   public required_arguments = 0
   public optional_arguments = 0

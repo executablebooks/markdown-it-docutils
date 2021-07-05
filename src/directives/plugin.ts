@@ -1,13 +1,13 @@
 import type MarkdownIt from "markdown-it"
 import type StateCore from "markdown-it/lib/rules_core/state_core"
 import type Token from "markdown-it/lib/token"
-import directiveToData, { Directive } from "./directiveStructure"
+import directiveToData, { Directive } from "./main"
 
-/** Allowed options for docutils plugin */
+/** Allowed options for directive plugin */
 export interface IOptions {
   /** Replace fence tokens with directive tokens, if there language is of the form `{name}` */
   replaceFences?: boolean
-  /** Core rule to run directives after */
+  /** Core rule to run directives after (default: block or fence_to_directive) */
   directivesAfter?: string
   /** Mapping of names to directives */
   directives?: { [key: string]: typeof Directive }
@@ -52,7 +52,7 @@ function replaceFences(state: StateCore): boolean {
   return true
 }
 
-/** Run all directives, replacing the original token  */
+/** Run all directives, replacing the original token */
 function runDirectives(directives: {
   [key: string]: typeof Directive
 }): (state: StateCore) => boolean {

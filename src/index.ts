@@ -1,19 +1,21 @@
 import type MarkdownIt from "markdown-it/lib"
 import { admonitions } from "./directives/admonitions"
 import directivePlugin, { IOptions as IDirectiveOptions } from "./directives/plugin"
-import rolePlugin from "./roles/plugin"
+import { roles } from "./roles/main"
+import rolePlugin, { IOptions as IRoleOptions } from "./roles/plugin"
 
 /** Allowed options for docutils plugin */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IOptions extends IDirectiveOptions {
+export interface IOptions extends IDirectiveOptions, IRoleOptions {
   // TODO new token render rules
 }
 
 /** Default options for docutils plugin */
 const OptionDefaults: IOptions = {
   replaceFences: true,
+  rolesAfter: "inline",
   directivesAfter: "block",
-  directives: { ...admonitions }
+  directives: { ...admonitions },
+  roles: { ...roles }
 }
 
 /**
@@ -22,6 +24,6 @@ const OptionDefaults: IOptions = {
 export default function docutilsPlugin(md: MarkdownIt, options?: IOptions): void {
   const fullOptions = { ...OptionDefaults, ...options }
 
-  rolePlugin(md)
+  rolePlugin(md, fullOptions)
   directivePlugin(md, fullOptions)
 }

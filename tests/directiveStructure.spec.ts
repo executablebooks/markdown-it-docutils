@@ -1,5 +1,5 @@
-import directiveToData, { DirectiveToken } from "../src/directives/directiveStructure"
-import { unchanged, class_option } from "../src/directives/directiveOptions"
+import directiveToData, { DirectiveToken } from "../src/directives/main"
+import { unchanged, class_option } from "../src/directives/options"
 
 describe("directive parser", () => {
   it('parses a "null" directive (no args, content)', () => {
