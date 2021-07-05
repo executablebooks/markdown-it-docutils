@@ -39,3 +39,26 @@ directive-image
 .
 <img src="https://via.placeholder.com/150" alt="">
 .
+
+directive-image-options
+.
+```{image} https://via.placeholder.com/150
+:align: center
+:alt: some *alt*
+:class: other
+```
+.
+<img src="https://via.placeholder.com/150" alt="some alt" class="align-center other">
+.
+
+directive-figure
+.
+```{figure} https://via.placeholder.com/150
+:align: center
+
+A **caption**
+```
+.
+<figure class="align-center"><img src="https://via.placeholder.com/150" alt="" class="align-center"><figcaption><p>A <strong>caption</strong></p>
+</figcaption></figure>
+.

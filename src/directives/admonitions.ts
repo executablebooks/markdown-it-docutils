@@ -17,7 +17,7 @@ class BaseAdmonition extends Directive {
 
     // we create an overall container, then individual containers for the title and body
 
-    const adToken = new this.state.Token("open_admonition", "aside", 1)
+    const adToken = new this.state.Token("admonition_open", "aside", 1)
     adToken.map = data.map
     adToken.attrSet("class", `admonition ${this.title.toLowerCase()}`)
     if (data.options.class) {
@@ -25,7 +25,7 @@ class BaseAdmonition extends Directive {
     }
     newTokens.push(adToken)
 
-    const adTokenTitle = new this.state.Token("open_admonition_title", "p", 1)
+    const adTokenTitle = new this.state.Token("admonition_title_open", "p", 1)
     adTokenTitle.attrSet("class", "admonition-title")
     newTokens.push(adTokenTitle)
 
@@ -37,9 +37,9 @@ class BaseAdmonition extends Directive {
     titleToken.children = []
     newTokens.push(titleToken)
 
-    newTokens.push(new this.state.Token("close_admonition_title", "p", -1))
+    newTokens.push(new this.state.Token("admonition_title_close", "p", -1))
 
-    const adTokenBody = new this.state.Token("open_admonition_body", "div", 1)
+    const adTokenBody = new this.state.Token("admonition_body_open", "div", 1)
     adTokenBody.map = [data.map[0] + data.bodyOffset, data.map[1]]
     adTokenBody.attrSet("class", "admonition-body")
     newTokens.push(adTokenBody)
@@ -47,9 +47,9 @@ class BaseAdmonition extends Directive {
     const bodyTokens = this.nestedParse(data.body, data.map[0] + data.bodyOffset)
     newTokens.push(...bodyTokens)
 
-    newTokens.push(new this.state.Token("close_admonition_body", "div", 1))
+    newTokens.push(new this.state.Token("admonition_body_close", "div", 1))
 
-    newTokens.push(new this.state.Token("close_admonition", "aside", -1))
+    newTokens.push(new this.state.Token("admonition_close", "aside", -1))
 
     return newTokens
   }

@@ -4,11 +4,25 @@ import {
   class_option,
   create_choice,
   length_or_percentage_or_unitless,
+  length_or_percentage_or_unitless_figure,
   length_or_unitless,
   percentage,
   unchanged,
   uri
 } from "./options"
+
+const shared_option_spec = {
+  alt: unchanged,
+  height: length_or_unitless,
+  width: length_or_percentage_or_unitless,
+  // TODO handle scale option
+  scale: percentage,
+  // TODO handle target option
+  target: unchanged,
+  class: class_option,
+  // TODO handle name option (note: should be applied to figure for Figure)
+  name: unchanged
+}
 
 /** Directive for a single image */
 export class Image extends Directive {
@@ -16,26 +30,28 @@ export class Image extends Directive {
   public optional_arguments = 0
   public final_argument_whitespace = true
   public option_spec = {
-    alt: unchanged,
-    height: length_or_unitless,
-    width: length_or_percentage_or_unitless,
-    // TODO handle scale option
-    scale: percentage,
-    align: create_choice(["left", "center", "right", "top", "middle", "bottom"]),
-    // TODO handle target option
-    target: unchanged,
-    class: class_option,
-    // TODO handle name option
-    name: unchanged
+    ...shared_option_spec,
+    align: create_choice(["left", "center", "right", "top", "middle", "bottom"])
   }
-  run(data: IDirectiveData): Token[] {
+  create_image(data: IDirectiveData): Token {
     // get URI
     const src = uri(data.args[0] || "")
 
     const token = new this.state.Token("image", "img", 0)
-    token.children = []
+    token.map = data.map
     token.attrSet("src", src)
     token.attrSet("alt", data.options.alt || "")
+    // TODO markdown-it default renderer requires the alt as children tokens
+    const altTokens: Token[] = []
+    if (data.options.alt) {
+      this.state.md.inline.parse(
+        data.options.alt,
+        this.state.md,
+        this.state.env,
+        altTokens
+      )
+    }
+    token.children = altTokens
     if (data.options.height) {
       token.attrSet("height", data.options.height)
     }
@@ -49,10 +65,56 @@ export class Image extends Directive {
       token.attrJoin("class", data.options.class.join(" "))
     }
 
-    return [token]
+    return token
+  }
+  run(data: IDirectiveData): Token[] {
+    return [this.create_image(data)]
+  }
+}
+
+/** Directive for an image with caption */
+export class Figure extends Image {
+  public option_spec = {
+    ...shared_option_spec,
+    align: create_choice(["left", "center", "right"]),
+    figwidth: length_or_percentage_or_unitless_figure,
+    figclass: class_option
+  }
+  public has_content = true
+  run(data: IDirectiveData): Token[] {
+    const openToken = new this.state.Token("figure_open", "figure", 1)
+    openToken.map = data.map
+    if (data.options.figclass) {
+      openToken.attrJoin("class", data.options.figclass.join(" "))
+    }
+    if (data.options.align) {
+      openToken.attrJoin("class", `align-${data.options.align}`)
+    }
+    if (data.options.figwidth && data.options.figwidth !== "image") {
+      // TODO handle figwidth == "image"?
+      openToken.attrSet("width", data.options.figwidth)
+    }
+    const imageToken = this.create_image(data)
+    imageToken.map = [data.map[0], data.map[0]]
+    let captionTokens: Token[] = []
+    if (data.body) {
+      const openCaption = new this.state.Token("figure_caption_open", "figcaption", 1)
+      // TODO in docutils caption can only be single paragraph (or ignored if comment)
+      // then additional content is figure legend
+      const captionBody = this.nestedParse(data.body, data.map[0] + data.bodyOffset)
+      const closeCaption = new this.state.Token(
+        "figure_caption_close",
+        "figcaption",
+        -1
+      )
+      captionTokens = [openCaption, ...captionBody, closeCaption]
+    }
+    const closeToken = new this.state.Token("figure_close", "figure", -1)
+    return [openToken, imageToken, ...captionTokens, closeToken]
   }
 }
 
 export const images = {
-  image: Image
+  image: Image,
+  figure: Figure
 }

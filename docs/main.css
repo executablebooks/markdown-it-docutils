@@ -25,6 +25,8 @@
   padding-left: 10px;
   outline: 1px solid lightgrey;
   min-height: 100px;
+  /* See https://stackoverflow.com/questions/2062258/floating-elements-within-a-div-floats-outside-of-div-why */
+  overflow-y: hidden;
 }
 
 @media (prefers-color-scheme: dark) {

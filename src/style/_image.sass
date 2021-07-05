@@ -1,18 +1,24 @@
 img
-  box-sizing: border-box
-  max-width: 100%
-  height: auto
+    box-sizing: border-box
+    max-width: 100%
+    height: auto
 
 img, figure
     &.align-left
         clear: left
         float: left
         margin-right: 1em
+
     &.align-right
         clear: right
         float: right
         margin-right: 1em
+
     &.align-center, &.align-default
         display: block
         margin-left: auto
         margin-right: auto
+
+figcaption
+    font-style: italic
+    text-align: center

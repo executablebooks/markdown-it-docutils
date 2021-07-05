@@ -18,7 +18,7 @@ export function make_id(name: string): string {
 }
 
 /** convert and validate an option value */
-export type OptionSpecConverter = (value: string) => any
+export type OptionSpecConverter = (value: string, options?: any) => any
 
 export class OptionSpecError extends Error {
   name = "OptionSpecError"
@@ -104,6 +104,16 @@ export const length_or_percentage_or_unitless: OptionSpecConverter = (
   } catch {
     return length_or_unitless(argument) + defaultUnit
   }
+}
+
+export const length_or_percentage_or_unitless_figure: OptionSpecConverter = (
+  argument: string,
+  defaultUnit = ""
+): string => {
+  if (argument.toLowerCase() === "image") {
+    return "image"
+  }
+  return length_or_percentage_or_unitless(argument, defaultUnit)
 }
 
 /** Create an option that asserts the (lower-cased & trimmed) value is a member of a choice set. */

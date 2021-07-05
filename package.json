@@ -29,7 +29,7 @@
     "lint:fix": "eslint -c .eslintrc.yml --fix src/**/*.ts tests/**/*.ts",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "sass": "sass --style=compressed --no-source-map src/style/index.sass dist/css/style.min.css",
+    "sass": "sass --style=compressed --source-map --embed-sources src/style/index.sass dist/css/style.min.css",
     "prebuild": "rm -rf dist",
     "build": "rollup -c rollup.config.js; npm run sass",
     "prepublishOnly": "npm run build"
