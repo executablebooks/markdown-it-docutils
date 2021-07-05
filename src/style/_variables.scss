@@ -22,8 +22,11 @@ $admonitions: (
   "admonition-todo": #808080 "pencil"
 );
 
-// Admonitions
 :root {
+  // Base Colors
+  --color-foreground-primary: black; // for main text and headings
+
+  // Admonitions
   --admonition-font-size: 0.8125rem;
   --admonition-title-font-size: 0.8125rem;
   --icon-admonition-default: var(--icon-#{nth($admonition-default, 2)});
@@ -34,5 +37,15 @@ $admonitions: (
   @each $name, $values in $admonitions {
     --color-admonition-title--#{$name}: #{nth($values, 1)};
     --color-admonition-title-background--#{$name}: #{rgba(nth($values, 1), 0.1)};
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Base Colors
+    --color-foreground-primary: #ffffffd9; // for main text and headings
+
+    // Admonitions
+    --color-admonition-background: #18181a;
   }
 }
