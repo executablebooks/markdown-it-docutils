@@ -1,5 +1,6 @@
 import type MarkdownIt from "markdown-it/lib"
 import { admonitions } from "./directives/admonitions"
+import { images } from "./directives/images"
 import directivePlugin, { IOptions as IDirectiveOptions } from "./directives/plugin"
 import { roles } from "./roles/main"
 import rolePlugin, { IOptions as IRoleOptions } from "./roles/plugin"
@@ -14,7 +15,7 @@ const OptionDefaults: IOptions = {
   replaceFences: true,
   rolesAfter: "inline",
   directivesAfter: "block",
-  directives: { ...admonitions },
+  directives: { ...admonitions, ...images },
   roles: { ...roles }
 }
 

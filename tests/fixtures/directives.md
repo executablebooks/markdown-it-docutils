@@ -32,16 +32,10 @@ directive-nested-admonition
 <div></aside><div></aside>
 .
 
-role-unhandled
+directive-image
 .
-A role {name}`content` in paragraph
+```{image} https://via.placeholder.com/150
+```
 .
-<p>A role <span class="role-unhandled"><mark>name</mark><code>content</code></span> in paragraph</p>
-.
-
-role-raw
-.
-{raw}`content`
-.
-<p><code>content</code></p>
+<img src="https://via.placeholder.com/150" alt="">
 .

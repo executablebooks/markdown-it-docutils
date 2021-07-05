@@ -247,7 +247,10 @@ function parseDirectiveOptions(
       converted_value = ""
     }
     try {
-      converted_value = convertor(`${converted_value}`)
+      // In docutils all values are simply read as strings,
+      // but loading with YAML these can be converted to other types, so we convert them back first
+      // TODO check that it is sufficient to simply do this conversion, or if there is a better way
+      converted_value = convertor(`${converted_value || ""}`)
     } catch (error) {
       throw new DirectiveParsingError(
         `Invalid option value: (option: '${name}'; value: ${value})\n${error}`

@@ -2,12 +2,13 @@ import type Token from "markdown-it/lib/token"
 import { class_option, unchanged } from "./options"
 import { Directive, IDirectiveData } from "./main"
 
+/** Directives for admonition boxes  */
 class BaseAdmonition extends Directive {
   public final_argument_whitespace = true
   public has_content = true
   public option_spec = {
-    // TODO handle options
     class: class_option,
+    // TODO handle name option
     name: unchanged
   }
   public title = ""
@@ -19,6 +20,9 @@ class BaseAdmonition extends Directive {
     const adToken = new this.state.Token("open_admonition", "aside", 1)
     adToken.map = data.map
     adToken.attrSet("class", `admonition ${this.title.toLowerCase()}`)
+    if (data.options.class) {
+      adToken.attrJoin("class", data.options.class.join(" "))
+    }
     newTokens.push(adToken)
 
     const adTokenTitle = new this.state.Token("open_admonition_title", "div", 1)

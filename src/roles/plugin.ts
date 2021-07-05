@@ -35,7 +35,7 @@ function roleRule(state: StateInline, silent: boolean): boolean {
   // Check if the role is escaped
   if (state.src.charCodeAt(state.pos - 1) === 0x5c) {
     /* \ */
-    // TODO: this could be improved in the case of edge case '\\{'
+    // TODO: this could be improved in the case of edge case '\\{', also multi-line
     return false
   }
   const match = ROLE_PATTERN.exec(state.src.slice(state.pos))

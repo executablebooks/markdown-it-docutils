@@ -29,7 +29,8 @@
           Simply write in the text box below, then click away, and the text will be
           rendered.
         </p>
-        <textarea id="inputtext" class="inputtext" rows="27">
+        <!-- TODO have adaptive grid for side by side comparison -->
+        <textarea id="inputtext" class="inputtext" rows="20">
 Unhandled role: {unknown}`content` in paragraph.
 
 Raw role: {raw}`content`
@@ -56,7 +57,13 @@ Nested admonitions:
 ````{note} This is a note
 ```{warning} This is a nested warning
 ```
-````</textarea
+````
+
+Image:
+
+```{image} https://via.placeholder.com/150
+:align: center
+```</textarea
         >
         <div id="renderer" class="rendered"></div>
       </div>
