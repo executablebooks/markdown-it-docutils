@@ -12,6 +12,7 @@ export interface IOptions extends IDirectiveOptions, IRoleOptions {
 
 /** Default options for docutils plugin */
 const OptionDefaults: IOptions = {
+  parseRoles: true,
   replaceFences: true,
   rolesAfter: "inline",
   directivesAfter: "block",

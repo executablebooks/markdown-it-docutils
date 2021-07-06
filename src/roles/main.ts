@@ -5,7 +5,9 @@ import type Token from "markdown-it/lib/token"
 
 /** Data structure of a role */
 export interface IRoleData {
-  // TODO allow for line and position in line
+  /** The map of the containing inline token */
+  parentMap: [number, number] | null
+  // TODO how to get line and position in line?
   content: string
   // TODO validate/convert
   options?: { [key: string]: any }

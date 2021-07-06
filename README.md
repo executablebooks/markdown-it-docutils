@@ -3,7 +3,7 @@
 [![ci-badge]][ci-link]
 [![npm-badge]][npm-link]
 
-A [markdown-it](https://github.com/markdown-it/markdown-it) plugin for implementing docutils style roles and directives.
+A [markdown-it](https://github.com/markdown-it/markdown-it) plugin for implementing docutils style roles (inline extension point) and directives (block extension point).
 
 See <https://executablebooks.github.io/markdown-it-docutils/> for a demonstration!
 
@@ -39,7 +39,20 @@ In the browser:
 </html>
 ```
 
-## Supported Directives
+## Supported roles (inline extensions)
+
+Roles are any token in the token, within an `inline` token's children with the `role` type:
+
+- `Token.meta = { name }` should contain the name of the role
+- `Token.content` should contain the content of the role
+
+By default (see `parseRoles` option), roles are parsed according to the MyST syntax: `` {name}`content` ``.
+
+All roles have a fallback renderer, but the the following are specifically handled:
+
+- `raw`
+
+## Supported directives (block extensions)
 
 Directives are any token in the token stream with the `directive` type:
 
@@ -58,20 +71,23 @@ content
 ```
 ````
 
-Admonitions:
+All directives have a fallback renderer, but the the following are specifically handled:
 
-- admonition
-- note
-- attention
-- caution
-- danger
-- error
-- important
-- hint
-- note
-- seealso
-- tip
-- warning
+- Admonitions:
+  - `admonition`
+  - `note`
+  - `attention`
+  - `caution`
+  - `danger`
+  - `error`
+  - `important`
+  - `hint`
+  - `note`
+  - `seealso`
+  - `tip`
+  - `warning`
+- `image`
+- `figure`
 
 ## Design Notes
 
@@ -79,12 +95,6 @@ TODO improve this:
 
 - Parsing all directives/roles to "generic" directive/role tokens first (with fallback renderer), then "run" the directives/roles
   - this separates the logic for parsing these syntaxes, from the logic for interpreting their content, i.e. the syntax for a directive/role can in theory be anything, as long as it can be converted to the necessary token
-
-## TODO
-
-- Roles
-- Bundle default CSS (use SASS?, use rollup-plugin-scss?)
-- Handle directive options
 
 ## Development
 

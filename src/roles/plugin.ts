@@ -10,6 +10,8 @@ import { Role } from "./main"
 
 /** Allowed options for directive plugin */
 export interface IOptions {
+  /** Parse roles of the form `` {name}`content` `` */
+  parseRoles?: boolean
   /** Core rule to run roles after (default: inline) */
   rolesAfter?: string
   /** Mapping of names to roles */
@@ -17,7 +19,9 @@ export interface IOptions {
 }
 
 export default function rolePlugin(md: MarkdownIt, options: IOptions): void {
-  md.inline.ruler.before("backticks", "parse_roles", roleRule)
+  if (options.parseRoles) {
+    md.inline.ruler.before("backticks", "parse_roles", roleRule)
+  }
   md.core.ruler.after(
     options.rolesAfter || "inline",
     "run_roles",
@@ -76,7 +80,10 @@ function runRoles(roles: {
           if (child.type === "role" && child.meta && child.meta.name in roles) {
             try {
               const role = new roles[child.meta.name](state)
-              const newTokens = role.run({ content: child.content })
+              const newTokens = role.run({
+                parentMap: token.map,
+                content: child.content
+              })
               childTokens.push(...newTokens)
             } catch (err) {
               const errorToken = new state.Token("role_error", "", 0)
