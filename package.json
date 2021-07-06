@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-docutils",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A markdown-it plugin for implementing docutils style roles and directives",
   "author": "Chris Sewell",
   "homepage": "https://github.com/executablebooks/markdown-it-docutils",
