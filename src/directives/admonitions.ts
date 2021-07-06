@@ -47,7 +47,7 @@ class BaseAdmonition extends Directive {
     const bodyTokens = this.nestedParse(data.body, data.map[0] + data.bodyOffset)
     newTokens.push(...bodyTokens)
 
-    newTokens.push(new this.state.Token("admonition_body_close", "div", 1))
+    newTokens.push(new this.state.Token("admonition_body_close", "div", -1))
 
     newTokens.push(new this.state.Token("admonition_close", "aside", -1))
 
