@@ -37,16 +37,12 @@ function nonnegative_int(argument: string): number {
   if (!argument) {
     throw new OptionSpecError("Value is not set")
   }
-  let value: number
-  try {
-    // TODO we could return bigint here? however, these are not compatible with regular numbers
-    BigInt(argument)
-    value = Number(argument)
-  } catch {
-    throw new OptionSpecError("Value could not be converted to an integer")
+  const value = Number.parseFloat(argument)
+  if (Number.isNaN(value) || !Number.isInteger(value)) {
+    throw new OptionSpecError(`Value "${argument}" is not an integer`)
   }
   if (value < 0) {
-    throw new OptionSpecError("negative value; must be positive or zero")
+    throw new OptionSpecError(`Value "${argument}" must be positive or zero`)
   }
   return value
 }
@@ -59,7 +55,7 @@ export const percentage: OptionSpecConverter = (value: string): number => {
 
 /** Check for a positive argument of one of the units and return a
     normalized string of the form "<value><unit>" (without space in
-    between). 
+    between).
 */
 function get_measure(argument: string, units: string[]): string {
   const regex = new RegExp(`^(?<number>[0-9.]+)\\s*(?<units>${units.join("|")})$`)
