@@ -86,8 +86,13 @@ All directives have a fallback renderer, but the the following are specifically 
   - `seealso`
   - `tip`
   - `warning`
-- `image`
-- `figure`
+- Image:
+  - `image`
+  - `figure`
+- Code:
+  - `code`
+  - `code-block`
+  - `code-cell`
 
 ## Design Notes
 

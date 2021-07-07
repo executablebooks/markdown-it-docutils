@@ -1,8 +1,14 @@
+/** Directives for creating admonitions, also known as call-outs,
+ * for including side content without significantly interrupting the document flow.
+ */
 import type Token from "markdown-it/lib/token"
 import { class_option, unchanged } from "./options"
 import { Directive, IDirectiveData } from "./main"
 
-/** Directives for admonition boxes  */
+/** Directives for admonition boxes.
+ *
+ * Apdapted from: docutils/docutils/parsers/rst/directives/admonitions.py
+ */
 class BaseAdmonition extends Directive {
   public final_argument_whitespace = true
   public has_content = true

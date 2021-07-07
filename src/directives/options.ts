@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/** Functions for converting and validating directive options */
+/** Functions for converting and validating directive options
+ *
+ * Primarily adapted from: docutils/docutils/parsers/rst/directives/__init__.py
+ */
 
 /**
  * Normalize a string to HTML4 id
@@ -20,6 +23,7 @@ export function make_id(name: string): string {
 /** convert and validate an option value */
 export type OptionSpecConverter = (value: string, options?: any) => any
 
+/** Error to throw when an option is invalid. */
 export class OptionSpecError extends Error {
   name = "OptionSpecError"
 }
@@ -27,13 +31,29 @@ export class OptionSpecError extends Error {
 /** Leave value unchanged */
 export const unchanged: OptionSpecConverter = (value: string): string => value
 
+/** Leave value unchanged, but assert non-empty string */
+export const unchanged_required: OptionSpecConverter = (value: string): string => {
+  if (!value) {
+    throw new OptionSpecError("Argument required but none supplied")
+  }
+  return value
+}
+
+/** A flag option (no argument) */
+export const flag: OptionSpecConverter = (value: string): null => {
+  if (value.trim()) {
+    throw new OptionSpecError(`No argument is allowed: "${value}" supplied`)
+  }
+  return null
+}
+
 /** Split values by whitespace and normalize to HTML4 id */
 export const class_option: OptionSpecConverter = (value: string): string[] => {
   return `${value || ""}`.split(/\s+/).map(name => make_id(name))
 }
 
-/** Check for a non-negative integer argument and convert */
-function nonnegative_int(argument: string): number {
+/** Check for an integer argument and convert */
+export function int(argument: string): number {
   if (!argument) {
     throw new OptionSpecError("Value is not set")
   }
@@ -41,10 +61,24 @@ function nonnegative_int(argument: string): number {
   if (Number.isNaN(value) || !Number.isInteger(value)) {
     throw new OptionSpecError(`Value "${argument}" is not an integer`)
   }
+  return value
+}
+
+/** Check for a non-negative integer argument and convert */
+export function nonnegative_int(argument: string): number {
+  const value = int(argument)
   if (value < 0) {
     throw new OptionSpecError(`Value "${argument}" must be positive or zero`)
   }
   return value
+}
+
+/** A non-negative integer or null. */
+export const optional_int: OptionSpecConverter = (value: string): null | number => {
+  if (!value) {
+    return null
+  }
+  return nonnegative_int(value)
 }
 
 /** Check for an integer percentage value with optional percent sign. */
