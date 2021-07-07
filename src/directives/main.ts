@@ -68,6 +68,8 @@ export interface IDirectiveSpec {
   option_spec?: {
     [key: string]: OptionSpecConverter
   }
+  /** If true, do not attempt to validate/convert options. */
+  rawOptions?: boolean
 }
 
 /** A class to define a single directive */
@@ -77,6 +79,7 @@ export class Directive implements IDirectiveSpec {
   public final_argument_whitespace = false
   public has_content = false
   public option_spec = {}
+  public rawOptions = false
   public state: StateCore
   constructor(state: StateCore) {
     this.state = state
@@ -85,6 +88,12 @@ export class Directive implements IDirectiveSpec {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   run(data: IDirectiveData): Token[] {
     return []
+  }
+  /** throw error is no body content parsed. */
+  assert_has_content(data: IDirectiveData): void {
+    if (!data.body) {
+      throw new Error("Content block expected, but none found.")
+    }
   }
   /** parse block of text to tokens (does not run inline parse) */
   nestedParse(block: string, initLine: number): Token[] {
@@ -121,21 +130,15 @@ export class DirectiveParsingError extends Error {
  */
 export default function directiveToData(
   token: Token,
-  directive: IDirectiveSpec,
-  /** Do not validate/convert option values */
-  skipValidation?: boolean
+  directive: IDirectiveSpec
 ): IDirectiveData {
   const firstLine = token.meta.arg || ""
   const content = token.content
   let body = content.trim() ? content.split(/\r?\n/) : []
   let bodyOffset = 0
   let options = {}
-  if (Object.keys(directive.option_spec || {})) {
-    ;[body, options, bodyOffset] = parseDirectiveOptions(
-      body,
-      directive,
-      !skipValidation
-    )
+  if (Object.keys(directive.option_spec || {}) || directive.rawOptions) {
+    ;[body, options, bodyOffset] = parseDirectiveOptions(body, directive)
   }
   let args: string[] = []
   if (
@@ -169,8 +172,7 @@ export default function directiveToData(
 
 function parseDirectiveOptions(
   content: string[],
-  fullSpec: IDirectiveSpec,
-  validate: boolean
+  fullSpec: IDirectiveSpec
 ): [string[], { [key: string]: any }, number] {
   // instantiate options
   let bodyOffset = 1
@@ -233,7 +235,7 @@ function parseDirectiveOptions(
     }
   }
 
-  if (!validate) {
+  if (fullSpec.rawOptions) {
     return [content, options, bodyOffset]
   }
 

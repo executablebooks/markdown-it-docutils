@@ -62,3 +62,65 @@ A **caption**
 <figure class="align-center"><img src="https://via.placeholder.com/150" alt="" class="align-center"><figcaption><p>A <strong>caption</strong></p>
 </figcaption></figure>
 .
+
+directive-code
+.
+```{code}
+a
+```
+.
+<pre><code>a
+</code></pre>
+.
+
+directive-code-language
+.
+```{code} python
+a
+```
+.
+<pre><code class="language-python">a
+</code></pre>
+.
+
+directive-code-block
+.
+```{code-block}
+a
+```
+.
+<pre><code>a
+</code></pre>
+.
+
+directive-code-block-language
+.
+```{code-block} python
+a
+```
+.
+<pre><code class="language-python">a
+</code></pre>
+.
+
+directive-code-cell
+.
+```{code-cell}
+a
+```
+.
+<pre><code>a
+</code></pre>
+.
+
+directive-code-cell-language
+.
+```{code-cell} python
+:other: value
+
+a
+```
+.
+<pre><code class="language-python">a
+</code></pre>
+.

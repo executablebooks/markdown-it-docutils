@@ -41,7 +41,7 @@ export default function directivePlugin(md: MarkdownIt, options: IOptions): void
 function replaceFences(state: StateCore): boolean {
   for (const token of state.tokens) {
     if (token.type === "fence") {
-      const match = token.info.match(/^\{([a-z]*)\}\s*(.*)$/)
+      const match = token.info.match(/^\{([^\s}]+)\}\s*(.*)$/)
       if (match) {
         token.type = "directive"
         token.info = match[1]

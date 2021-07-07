@@ -1,3 +1,4 @@
+/** Directives for image visualisation */
 import type Token from "markdown-it/lib/token"
 import { Directive, IDirectiveData } from "./main"
 import {
@@ -8,6 +9,7 @@ import {
   length_or_unitless,
   percentage,
   unchanged,
+  unchanged_required,
   uri
 } from "./options"
 
@@ -18,13 +20,16 @@ const shared_option_spec = {
   // TODO handle scale option
   scale: percentage,
   // TODO handle target option
-  target: unchanged,
+  target: unchanged_required,
   class: class_option,
   // TODO handle name option (note: should be applied to figure for Figure)
   name: unchanged
 }
 
-/** Directive for a single image */
+/** Directive for a single image.
+ *
+ * Adapted from: docutils/docutils/parsers/rst/directives/images.py
+ */
 export class Image extends Directive {
   public required_arguments = 1
   public optional_arguments = 0
@@ -72,7 +77,11 @@ export class Image extends Directive {
   }
 }
 
-/** Directive for an image with caption */
+/** Directive for an image with caption.
+ *
+ * Adapted from: docutils/docutils/parsers/rst/directives/images.py,
+ * and sphinx/directives/patches.py (patch to apply name to figure instead of image)
+ */
 export class Figure extends Image {
   public option_spec = {
     ...shared_option_spec,
