@@ -1,5 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
 .header {
-  padding: 10px;
+  padding: 2px;
   text-align: center;
   color: black;
   background-color: lightgrey;
@@ -11,22 +15,44 @@
 }
 
 .inputtext {
+  width: 48%;
+  display: inline-block;
+  vertical-align: top;
   padding: 2px;
-  min-width: 70%;
   min-height: 100px;
+  resize: none;
 }
 
 .rendered {
+  width: 48%;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
   text-align: left;
-  margin-top: 10px;
-  margin-left: 15%;
-  margin-right: 15%;
   padding: 4px;
   padding-left: 10px;
   outline: 1px solid lightgrey;
   min-height: 100px;
   /* See https://stackoverflow.com/questions/2062258/floating-elements-within-a-div-floats-outside-of-div-why */
   overflow-y: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+
+  /* For mobile phones: */
+  .inputtext,
+  .rendered {
+    width: 100%;
+  }
+
+  .inputtext {
+    height: 200px;
+  }
+
+  .rendered {
+    margin-top: 10px;
+    margin-left: 0px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
