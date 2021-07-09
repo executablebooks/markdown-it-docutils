@@ -3,6 +3,7 @@ import { admonitions } from "./directives/admonitions"
 import { code } from "./directives/code"
 import { images } from "./directives/images"
 import directivePlugin, { IOptions as IDirectiveOptions } from "./directives/plugin"
+import { tables } from "./directives/tables"
 import { roles } from "./roles/main"
 import rolePlugin, { IOptions as IRoleOptions } from "./roles/plugin"
 
@@ -17,7 +18,7 @@ const OptionDefaults: IOptions = {
   replaceFences: true,
   rolesAfter: "inline",
   directivesAfter: "block",
-  directives: { ...admonitions, ...images, ...code },
+  directives: { ...admonitions, ...images, ...code, ...tables },
   roles: { ...roles }
 }
 

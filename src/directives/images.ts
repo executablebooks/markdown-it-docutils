@@ -42,8 +42,7 @@ export class Image extends Directive {
     // get URI
     const src = uri(data.args[0] || "")
 
-    const token = new this.state.Token("image", "img", 0)
-    token.map = data.map
+    const token = this.createToken("image", "img", 0, { map: data.map })
     token.attrSet("src", src)
     token.attrSet("alt", data.options.alt || "")
     // TODO markdown-it default renderer requires the alt as children tokens
@@ -91,8 +90,7 @@ export class Figure extends Image {
   }
   public has_content = true
   run(data: IDirectiveData): Token[] {
-    const openToken = new this.state.Token("figure_open", "figure", 1)
-    openToken.map = data.map
+    const openToken = this.createToken("figure_open", "figure", 1, { map: data.map })
     if (data.options.figclass) {
       openToken.attrJoin("class", data.options.figclass.join(" "))
     }
@@ -107,18 +105,14 @@ export class Figure extends Image {
     imageToken.map = [data.map[0], data.map[0]]
     let captionTokens: Token[] = []
     if (data.body) {
-      const openCaption = new this.state.Token("figure_caption_open", "figcaption", 1)
+      const openCaption = this.createToken("figure_caption_open", "figcaption", 1)
       // TODO in docutils caption can only be single paragraph (or ignored if comment)
       // then additional content is figure legend
-      const captionBody = this.nestedParse(data.body, data.map[0] + data.bodyOffset)
-      const closeCaption = new this.state.Token(
-        "figure_caption_close",
-        "figcaption",
-        -1
-      )
+      const captionBody = this.nestedParse(data.body, data.bodyMap[0])
+      const closeCaption = this.createToken("figure_caption_close", "figcaption", -1)
       captionTokens = [openCaption, ...captionBody, closeCaption]
     }
-    const closeToken = new this.state.Token("figure_close", "figure", -1)
+    const closeToken = this.createToken("figure_close", "figure", -1)
     return [openToken, imageToken, ...captionTokens, closeToken]
   }
 }

@@ -32,11 +32,12 @@ export class Code extends Directive {
   run(data: IDirectiveData): Token[] {
     // TODO handle options
     this.assert_has_content(data)
-    const token = new this.state.Token("fence", "code", 0)
-    // TODO if not specified, the language should come from a central configuration "highlight_language"
-    token.info = data.args ? data.args[0] : ""
-    token.content = data.body
-    token.map = data.map
+    const token = this.createToken("fence", "code", 0, {
+      // TODO if not specified, the language should come from a central configuration "highlight_language"
+      info: data.args ? data.args[0] : "",
+      content: data.body,
+      map: data.bodyMap
+    })
     return [token]
   }
 }
@@ -70,11 +71,12 @@ export class CodeBlock extends Directive {
   run(data: IDirectiveData): Token[] {
     // TODO handle options
     this.assert_has_content(data)
-    const token = new this.state.Token("fence", "code", 0)
-    // TODO if not specified, the language should come from a central configuration "highlight_language"
-    token.info = data.args ? data.args[0] : ""
-    token.content = data.body
-    token.map = data.map
+    const token = this.createToken("fence", "code", 0, {
+      // TODO if not specified, the language should come from a central configuration "highlight_language"
+      info: data.args ? data.args[0] : "",
+      content: data.body,
+      map: data.bodyMap
+    })
     return [token]
   }
 }
@@ -89,10 +91,11 @@ export class CodeCell extends Directive {
 
   run(data: IDirectiveData): Token[] {
     // TODO store options and the fact that this is a code cell rather than a fence?
-    const token = new this.state.Token("fence", "code", 0)
-    token.info = data.args ? data.args[0] : ""
-    token.content = data.body
-    token.map = data.map
+    const token = this.createToken("fence", "code", 0, {
+      info: data.args ? data.args[0] : "",
+      content: data.body,
+      map: data.bodyMap
+    })
     return [token]
   }
 }

@@ -1,4 +1,4 @@
-directive-unknown
+unknown
 .
 ```{unknown} argument
 content
@@ -10,7 +10,7 @@ content
 </pre></aside>
 .
 
-directive-admonition
+admonition
 .
 ```{admonition} A **Title**
 Some *content*
@@ -20,7 +20,7 @@ Some *content*
 </div></aside>
 .
 
-directive-nested-admonition
+nested-admonition
 .
 ````{note} This is a note
 ```{warning} This is a nested warning
@@ -32,7 +32,7 @@ directive-nested-admonition
 </div></aside></div></aside>
 .
 
-directive-image
+image
 .
 ```{image} https://via.placeholder.com/150
 ```
@@ -40,7 +40,7 @@ directive-image
 <img src="https://via.placeholder.com/150" alt="">
 .
 
-directive-image-options
+image-options
 .
 ```{image} https://via.placeholder.com/150
 :align: center
@@ -51,7 +51,7 @@ directive-image-options
 <img src="https://via.placeholder.com/150" alt="some alt" class="align-center other">
 .
 
-directive-figure
+figure
 .
 ```{figure} https://via.placeholder.com/150
 :align: center
@@ -63,7 +63,7 @@ A **caption**
 </figcaption></figure>
 .
 
-directive-code
+code
 .
 ```{code}
 a
@@ -73,7 +73,7 @@ a
 </code></pre>
 .
 
-directive-code-language
+code-language
 .
 ```{code} python
 a
@@ -83,7 +83,7 @@ a
 </code></pre>
 .
 
-directive-code-block
+code-block
 .
 ```{code-block}
 a
@@ -93,7 +93,7 @@ a
 </code></pre>
 .
 
-directive-code-block-language
+code-block-language
 .
 ```{code-block} python
 a
@@ -103,7 +103,7 @@ a
 </code></pre>
 .
 
-directive-code-cell
+code-cell
 .
 ```{code-cell}
 a
@@ -113,7 +113,7 @@ a
 </code></pre>
 .
 
-directive-code-cell-language
+code-cell-language
 .
 ```{code-cell} python
 :other: value
@@ -123,4 +123,42 @@ a
 .
 <pre><code class="language-python">a
 </code></pre>
+.
+
+list-table
+.
+```{list-table}
+*   - Row 1, Column 1
+    - Row 1, Column 2
+    - Row 1, Column 3
+*   - Row 2, Column 1
+    - Row 2, Column 2
+    - Row 2, Column 3
+*   - Row 3, Column 1
+    - Row 3, Column 2
+    - Row 3, Column 3
+```
+.
+<table><tbody><tr><td>Row 1, Column 1</td><td>Row 1, Column 2</td><td>Row 1, Column 3</td></tr><tr><td>Row 2, Column 1</td><td>Row 2, Column 2</td><td>Row 2, Column 3</td></tr><tr><td>Row 3, Column 1</td><td>Row 3, Column 2</td><td>Row 3, Column 3</td></tr></tbody></table>
+.
+
+list-table-with-head
+.
+```{list-table}  Caption *text*
+:header-rows: 1
+:align: center
+:class: myclass
+
+*   - Head 1, Column 1
+    - Head 1, Column 2
+    - Head 1, Column 3
+*   - Row 1, Column 1
+    - Row 1, Column 2
+    - Row 1, Column 3
+*   - Row 2, Column 1
+    - Row 2, Column 2
+    - Row 2, **Column 3**
+```
+.
+<table class="align-center myclass"><caption>Caption <em>text</em></caption><thead><tr><th>Head 1, Column 1</th><th>Head 1, Column 2</th><th>Head 1, Column 3</th></tr></thead><tbody><tr><td>Row 1, Column 1</td><td>Row 1, Column 2</td><td>Row 1, Column 3</td></tr><tr><td>Row 2, Column 1</td><td>Row 2, Column 2</td><td>Row 2, <strong>Column 3</strong></td></tr></tbody></table>
 .
