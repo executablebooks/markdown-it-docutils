@@ -4,6 +4,7 @@
 [![npm-badge]][npm-link]
 
 A [markdown-it](https://github.com/markdown-it/markdown-it) plugin for implementing docutils style roles (inline extension point) and directives (block extension point).
+The package also vendors a default CSS, with light/dark mode adaptive colors and overridable [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 
 See <https://executablebooks.github.io/markdown-it-docutils/> for a demonstration!
 
@@ -95,6 +96,17 @@ All directives have a fallback renderer, but the the following are specifically 
   - `code-cell`
 - Tables:
   - `list-table`
+
+## CSS Styling
+
+markdown-it-docutils distributes with a default `dist/css/style.min.css` styling, primarily adapted from the [furo sphinx theme](https://pradyunsg.me/furo).
+The CSS makes extensive use of [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
+These can be overridden by the user and are used for stylizing nearly all elements of the documentation.
+
+The colors are in light mode by default, switching to the dark mode when requested by the user’s browser (through `prefers-color-scheme: dark`). See the [`prefers-color-scheme` documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) for details.
+
+As a consequence of this design, the dark mode inherits the variable definitions from the light mode, only overriding specific values to adapt the theme.
+While the mechanism for switching between light/dark mode is not configurable, the exact CSS variable definitions used in this process can be configured with [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 
 ## Design Notes
 

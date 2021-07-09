@@ -39,14 +39,15 @@ $admonitions: (
   --icon-admonition-default: var(--icon-#{nth($admonition-default, 2)});
 
   // Directives
-  --color-directive-unhandled-background: transparent;
-  --color-directive-error-background: rgba(255, 0, 0, 0.1);
+  --color-directive-unhandled-background: rgba(255, 255, 255, 0.3);
+  --color-directive-error-background: rgba(255, 0, 0, 0.4);
 
   // Admonitions
   --admonition-font-size: 0.8125rem;
   --admonition-title-font-size: 0.8125rem;
   --icon-admonition-default: var(--icon-#{nth($admonition-default, 2)});
-  --color-admonition-background: transparent;
+  // Note this background is transparent in furo, but we want dark text to still work for dark backgrounds 
+  --color-admonition-background: rgba(255, 255, 255, 0.3);
   --color-admonition-title: #{nth($admonition-default, 1)};
   --color-admonition-title-background: #{rgba(nth($admonition-default, 1), 0.1)};
 
