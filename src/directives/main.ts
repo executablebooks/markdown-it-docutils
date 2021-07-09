@@ -89,11 +89,55 @@ export class Directive implements IDirectiveSpec {
   run(data: IDirectiveData): Token[] {
     return []
   }
+  assert(test: boolean, msg: string): void {
+    if (!test) {
+      throw new Error(msg)
+    }
+  }
   /** throw error is no body content parsed. */
   assert_has_content(data: IDirectiveData): void {
     if (!data.body) {
       throw new Error("Content block expected, but none found.")
     }
+  }
+  /** Create a single token */
+  createToken(
+    type: string,
+    tag: string,
+    nesting: Token.Nesting,
+    optional?: {
+      content?: string
+      level?: number
+      map?: null | [number, number]
+      meta?: any
+      info?: string
+      block?: boolean
+      children?: Token[]
+    }
+  ): Token {
+    const token = new this.state.Token(type, tag, nesting)
+    if (optional?.content !== undefined) {
+      token.content = optional.content
+    }
+    if (optional?.level !== undefined) {
+      token.level = optional.level
+    }
+    if (optional?.map !== undefined) {
+      token.map = optional.map
+    }
+    if (optional?.block !== undefined) {
+      token.block = optional.block
+    }
+    if (optional?.info !== undefined) {
+      token.info = optional.info
+    }
+    if (optional?.meta !== undefined) {
+      token.meta = optional.meta
+    }
+    if (optional?.children !== undefined) {
+      token.children = optional.children
+    }
+    return token
   }
   /** parse block of text to tokens (does not run inline parse) */
   nestedParse(block: string, initLine: number): Token[] {
@@ -114,8 +158,7 @@ export interface IDirectiveData {
   args: string[]
   options: { [key: string]: any }
   body: string
-  /** line that body content starts on, relative to start of directive */
-  bodyOffset: number
+  bodyMap: [number, number]
 }
 
 /** Raise on parsing/validation error. */
@@ -166,7 +209,12 @@ export default function directiveToData(
     args,
     options,
     body: body.join("\n"),
-    bodyOffset
+    bodyMap: token.map
+      ? [
+          body.length > 0 ? token.map[0] + bodyOffset : token.map[1],
+          body.length > 0 ? token.map[1] - 1 : token.map[1]
+        ]
+      : [0, 0]
   }
 }
 

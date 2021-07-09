@@ -93,6 +93,8 @@ All directives have a fallback renderer, but the the following are specifically 
   - `code`
   - `code-block`
   - `code-cell`
+- Tables:
+  - `list-table`
 
 ## Design Notes
 
