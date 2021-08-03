@@ -16,7 +16,7 @@ admonition
 Some *content*
 ```
 .
-<aside class="admonition ">
+<aside class="admonition">
 <header class="admonition-title">A <strong>Title</strong></header>
 <p>Some <em>content</em></p>
 </aside>

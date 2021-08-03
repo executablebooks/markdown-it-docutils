@@ -27,7 +27,8 @@ class BaseAdmonition extends Directive {
       map: data.map,
       block: true
     })
-    adToken.attrSet("class", `admonition ${this.title.toLowerCase()}`)
+    adToken.attrSet("class", "admonition")
+    if (this.title) adToken.attrJoin("class", this.title.toLowerCase())
     if (data.options.class) {
       adToken.attrJoin("class", data.options.class.join(" "))
     }
