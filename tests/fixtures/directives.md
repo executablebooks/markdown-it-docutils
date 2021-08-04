@@ -16,8 +16,10 @@ admonition
 Some *content*
 ```
 .
-<aside class="admonition "><p class="admonition-title">A <strong>Title</strong></p><div class="admonition-body"><p>Some <em>content</em></p>
-</div></aside>
+<aside class="admonition ">
+<header class="admonition-title">A <strong>Title</strong></header>
+<p>Some <em>content</em></p>
+</aside>
 .
 
 nested-admonition
@@ -27,9 +29,14 @@ nested-admonition
 ```
 ````
 .
-<aside class="admonition note"><p class="admonition-title">Note</p><div class="admonition-body"><p>This is a note</p>
-<aside class="admonition warning"><p class="admonition-title">Warning</p><div class="admonition-body"><p>This is a nested warning</p>
-</div></aside></div></aside>
+<aside class="admonition note">
+<header class="admonition-title">Note</header>
+<p>This is a note</p>
+<aside class="admonition warning">
+<header class="admonition-title">Warning</header>
+<p>This is a nested warning</p>
+</aside>
+</aside>
 .
 
 image
