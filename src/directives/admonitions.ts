@@ -23,14 +23,18 @@ class BaseAdmonition extends Directive {
 
     // we create an overall container, then individual containers for the title and body
 
-    const adToken = this.createToken("admonition_open", "aside", 1, { map: data.map })
-    adToken.attrSet("class", `admonition ${this.title.toLowerCase()}`)
+    const adToken = this.createToken("admonition_open", "aside", 1, {
+      map: data.map,
+      block: true
+    })
+    adToken.attrSet("class", "admonition")
+    if (this.title) adToken.attrJoin("class", this.title.toLowerCase())
     if (data.options.class) {
       adToken.attrJoin("class", data.options.class.join(" "))
     }
     newTokens.push(adToken)
 
-    const adTokenTitle = this.createToken("admonition_title_open", "p", 1)
+    const adTokenTitle = this.createToken("admonition_title_open", "header", 1)
     adTokenTitle.attrSet("class", "admonition-title")
     newTokens.push(adTokenTitle)
 
@@ -44,20 +48,15 @@ class BaseAdmonition extends Directive {
       })
     )
 
-    newTokens.push(this.createToken("admonition_title_close", "p", -1))
+    newTokens.push(
+      this.createToken("admonition_title_close", "header", -1, { block: true })
+    )
 
-    const adTokenBody = this.createToken("admonition_body_open", "div", 1, {
-      map: data.bodyMap
-    })
-    adTokenBody.attrSet("class", "admonition-body")
-    newTokens.push(adTokenBody)
     // run a recursive parse on the content of the admonition upto this stage
     const bodyTokens = this.nestedParse(data.body, data.bodyMap[0])
     newTokens.push(...bodyTokens)
 
-    newTokens.push(this.createToken("admonition_body_close", "div", -1))
-
-    newTokens.push(this.createToken("admonition_close", "aside", -1))
+    newTokens.push(this.createToken("admonition_close", "aside", -1, { block: true }))
 
     return newTokens
   }
