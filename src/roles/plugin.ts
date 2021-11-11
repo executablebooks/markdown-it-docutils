@@ -2,22 +2,12 @@
 // Ported from https://github.com/executablebooks/markdown-it-py/blob/master/markdown_it/extensions/myst_role/index.py
 // MIT License: https://github.com/executablebooks/markdown-it-py/blob/master/LICENSE
 
-import type MarkdownIt from "markdown-it"
+import type MarkdownIt from "markdown-it/lib"
 import type StateCore from "markdown-it/lib/rules_core/state_core"
 import type StateInline from "markdown-it/lib/rules_inline/state_inline"
-import type Token from "markdown-it/lib/token"
 import { Role } from "./main"
-import { inlineMathRenderer, IOptions as IMathRoleOptions } from "./math"
-
-/** Allowed options for directive plugin */
-export interface IOptions extends IMathRoleOptions {
-  /** Parse roles of the form `` {name}`content` `` */
-  parseRoles?: boolean
-  /** Core rule to run roles after (default: inline) */
-  rolesAfter?: string
-  /** Mapping of names to roles */
-  roles?: Record<string, typeof Role>
-}
+import { IOptions } from "./types"
+import { inlineMathRenderer } from "./math"
 
 export default function rolePlugin(md: MarkdownIt, options: IOptions): void {
   if (options.parseRoles) {
@@ -29,7 +19,7 @@ export default function rolePlugin(md: MarkdownIt, options: IOptions): void {
     runRoles(options.roles || {})
   )
   // fallback renderer for unhandled roles
-  md.renderer.rules["role"] = (tokens: Token[], idx: number) => {
+  md.renderer.rules["role"] = (tokens, idx) => {
     const token = tokens[idx]
     return `<span class="role-unhandled"><mark>${token.meta.name}</mark><code>${token.content}</code></span>`
   }
@@ -96,8 +86,8 @@ function runRoles(roles: {
               errorToken.info = child.info
               errorToken.meta = child.meta
               errorToken.map = child.map
-              errorToken.meta.error_message = err.message
-              errorToken.meta.error_name = err.name
+              errorToken.meta.error_message = (err as Error).message
+              errorToken.meta.error_name = (err as Error).name
               childTokens.push(errorToken)
             }
           } else {
