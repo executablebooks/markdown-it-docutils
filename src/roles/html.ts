@@ -42,7 +42,13 @@ export class Abbreviation extends Role {
 }
 
 export const html = {
+  // Subscript
+  subscript: Subscript,
   sub: Subscript,
+  // Superscript
+  superscript: Subscript,
   sup: Superscript,
+  // Abbreviation
+  abbreviation: Abbreviation,
   abbr: Abbreviation
 }
