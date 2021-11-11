@@ -35,6 +35,6 @@ export class RawRole extends Role {
   }
 }
 
-export const roles = {
+export const main = {
   raw: RawRole
 }
