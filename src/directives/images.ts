@@ -38,7 +38,7 @@ export class Image extends Directive {
     ...shared_option_spec,
     align: create_choice(["left", "center", "right", "top", "middle", "bottom"])
   }
-  create_image(data: IDirectiveData): Token {
+  create_image(data: IDirectiveData<keyof Image["option_spec"]>): Token {
     // get URI
     const src = uri(data.args[0] || "")
 
@@ -89,7 +89,7 @@ export class Figure extends Image {
     figclass: class_option
   }
   public has_content = true
-  run(data: IDirectiveData): Token[] {
+  run(data: IDirectiveData<keyof Figure["option_spec"]>): Token[] {
     const openToken = this.createToken("figure_open", "figure", 1, { map: data.map })
     if (data.options.figclass) {
       openToken.attrJoin("class", data.options.figclass.join(" "))

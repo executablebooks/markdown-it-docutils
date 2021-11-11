@@ -29,7 +29,7 @@ export class Code extends Directive {
     name: unchanged,
     class: class_option
   }
-  run(data: IDirectiveData): Token[] {
+  run(data: IDirectiveData<keyof Code["option_spec"]>): Token[] {
     // TODO handle options
     this.assert_has_content(data)
     const token = this.createToken("fence", "code", 0, {
@@ -68,7 +68,7 @@ export class CodeBlock extends Directive {
     name: unchanged,
     class: class_option
   }
-  run(data: IDirectiveData): Token[] {
+  run(data: IDirectiveData<keyof CodeBlock["option_spec"]>): Token[] {
     // TODO handle options
     this.assert_has_content(data)
     const token = this.createToken("fence", "code", 0, {
@@ -89,7 +89,7 @@ export class CodeCell extends Directive {
   public has_content = true
   public rawOptions = true
 
-  run(data: IDirectiveData): Token[] {
+  run(data: IDirectiveData<keyof CodeCell["option_spec"]>): Token[] {
     // TODO store options and the fact that this is a code cell rather than a fence?
     const token = this.createToken("fence", "code", 0, {
       info: data.args ? data.args[0] : "",

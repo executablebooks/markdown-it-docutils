@@ -18,7 +18,7 @@ class BaseAdmonition extends Directive {
     name: unchanged
   }
   public title = ""
-  run(data: IDirectiveData): Token[] {
+  run(data: IDirectiveData<keyof BaseAdmonition["option_spec"]>): Token[] {
     const newTokens: Token[] = []
 
     // we create an overall container, then individual containers for the title and body
