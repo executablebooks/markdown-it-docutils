@@ -7,15 +7,16 @@ import type StateCore from "markdown-it/lib/rules_core/state_core"
 import type StateInline from "markdown-it/lib/rules_inline/state_inline"
 import type Token from "markdown-it/lib/token"
 import { Role } from "./main"
+import { inlineMathRenderer, IOptions as IMathRoleOptions } from "./math"
 
 /** Allowed options for directive plugin */
-export interface IOptions {
+export interface IOptions extends IMathRoleOptions {
   /** Parse roles of the form `` {name}`content` `` */
   parseRoles?: boolean
   /** Core rule to run roles after (default: inline) */
   rolesAfter?: string
   /** Mapping of names to roles */
-  roles?: { [key: string]: typeof Role }
+  roles?: Record<string, typeof Role>
 }
 
 export default function rolePlugin(md: MarkdownIt, options: IOptions): void {
@@ -32,6 +33,10 @@ export default function rolePlugin(md: MarkdownIt, options: IOptions): void {
     const token = tokens[idx]
     return `<span class="role-unhandled"><mark>${token.meta.name}</mark><code>${token.content}</code></span>`
   }
+
+  // TODO: when another renderer comes up, refactor into something a bit more scalable
+  inlineMathRenderer(md, options)
+
   // TODO role_error renderer
 }
 
