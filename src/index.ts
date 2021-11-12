@@ -9,7 +9,8 @@ import { roles } from "./roles/main"
 import { html } from "./roles/html"
 import rolePlugin from "./roles/plugin"
 import type { IOptions as IRoleOptions } from "./roles/types"
-import { math } from "./roles/math"
+import { math as mathRole } from "./roles/math"
+import { math as mathDirective } from "./directives/math"
 
 /** Allowed options for docutils plugin */
 export interface IOptions extends IDirectiveOptions, IRoleOptions {
@@ -22,8 +23,8 @@ const OptionDefaults: IOptions = {
   replaceFences: true,
   rolesAfter: "inline",
   directivesAfter: "block",
-  directives: { ...admonitions, ...images, ...code, ...tables },
-  roles: { ...roles, ...html, ...math }
+  directives: { ...admonitions, ...images, ...code, ...tables, ...mathDirective },
+  roles: { ...roles, ...html, ...mathRole }
 }
 
 /**

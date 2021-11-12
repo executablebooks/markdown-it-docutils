@@ -97,9 +97,11 @@ All directives have a fallback renderer, but the the following are specifically 
 - Tables:
   - `list-table`
 - HTML:
- - `sub`: Subscript
- - `sup`: Superscript
- - `abbr`: Abbreviation
+  - `sub`: Subscript
+  - `sup`: Superscript
+  - `abbr`: Abbreviation
+- Other:
+  - `math` 
 
 ## CSS Styling
 

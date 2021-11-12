@@ -65,9 +65,7 @@ export interface IDirectiveSpec {
   /** if body content is allowed */
   has_content?: boolean
   /** mapping known option names to conversion functions */
-  option_spec?: {
-    [key: string]: OptionSpecConverter
-  }
+  option_spec?: Record<string, OptionSpecConverter>
   /** If true, do not attempt to validate/convert options. */
   rawOptions?: boolean
 }
@@ -153,10 +151,10 @@ export class Directive implements IDirectiveSpec {
 }
 
 /** Data structure of a directive */
-export interface IDirectiveData {
+export interface IDirectiveData<T extends string = string> {
   map: [number, number]
   args: string[]
-  options: { [key: string]: any }
+  options: Record<T, any>
   body: string
   bodyMap: [number, number]
 }
