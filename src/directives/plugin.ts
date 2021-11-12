@@ -5,7 +5,7 @@ import { IOptions } from "./types"
 
 export default function directivePlugin(md: MarkdownIt, options: IOptions): void {
   let after = options.directivesAfter || "block"
-  if (options.replaceFences) {
+  if (options.replaceFences ?? true) {
     md.core.ruler.after(after, "fence_to_directive", replaceFences)
     after = "fence_to_directive"
   }

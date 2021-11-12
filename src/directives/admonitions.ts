@@ -62,46 +62,47 @@ class BaseAdmonition extends Directive {
   }
 }
 
-class Admonition extends BaseAdmonition {
+export class Admonition extends BaseAdmonition {
   public required_arguments = 1
 }
 
-class Attention extends BaseAdmonition {
+export class Attention extends BaseAdmonition {
   public title = "Attention"
 }
 
-class Caution extends BaseAdmonition {
+export class Caution extends BaseAdmonition {
   public title = "Caution"
 }
 
-class Danger extends BaseAdmonition {
+export class Danger extends BaseAdmonition {
   public title = "Danger"
 }
 
-class Error extends BaseAdmonition {
+export class Error extends BaseAdmonition {
   public title = "Error"
 }
 
-class Important extends BaseAdmonition {
+export class Important extends BaseAdmonition {
   public title = "Important"
 }
 
-class Hint extends BaseAdmonition {
+export class Hint extends BaseAdmonition {
   public title = "Hint"
 }
-class Note extends BaseAdmonition {
+
+export class Note extends BaseAdmonition {
   public title = "Note"
 }
 
-class SeeAlso extends BaseAdmonition {
+export class SeeAlso extends BaseAdmonition {
   public title = "See Also"
 }
 
-class Tip extends BaseAdmonition {
+export class Tip extends BaseAdmonition {
   public title = "Tip"
 }
 
-class Warning extends BaseAdmonition {
+export class Warning extends BaseAdmonition {
   public title = "Warning"
 }
 
