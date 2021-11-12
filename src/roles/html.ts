@@ -1,3 +1,6 @@
+/**
+ * This module contains roles that directly map to HTML semantic tags
+ */
 import type Token from "markdown-it/lib/token"
 import { IRoleData, Role } from "./main"
 

@@ -1,3 +1,6 @@
+/**
+ * This module contains roles that relate to mathematics
+ */
 import type MarkdownIt from "markdown-it/lib"
 import type Token from "markdown-it/lib/token"
 import { IRoleData, Role } from "./main"
