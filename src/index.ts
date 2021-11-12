@@ -2,10 +2,14 @@ import type MarkdownIt from "markdown-it/lib"
 import { admonitions } from "./directives/admonitions"
 import { code } from "./directives/code"
 import { images } from "./directives/images"
-import directivePlugin, { IOptions as IDirectiveOptions } from "./directives/plugin"
+import directivePlugin from "./directives/plugin"
+import type { IOptions as IDirectiveOptions } from "./directives/types"
 import { tables } from "./directives/tables"
 import { roles } from "./roles/main"
-import rolePlugin, { IOptions as IRoleOptions } from "./roles/plugin"
+import { html } from "./roles/html"
+import rolePlugin from "./roles/plugin"
+import type { IOptions as IRoleOptions } from "./roles/types"
+import { math } from "./roles/math"
 
 /** Allowed options for docutils plugin */
 export interface IOptions extends IDirectiveOptions, IRoleOptions {
@@ -19,7 +23,7 @@ const OptionDefaults: IOptions = {
   rolesAfter: "inline",
   directivesAfter: "block",
   directives: { ...admonitions, ...images, ...code, ...tables },
-  roles: { ...roles }
+  roles: { ...roles, ...html, ...math }
 }
 
 /**

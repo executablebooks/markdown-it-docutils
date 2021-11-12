@@ -96,6 +96,10 @@ All directives have a fallback renderer, but the the following are specifically 
   - `code-cell`
 - Tables:
   - `list-table`
+- HTML:
+ - `sub`: Subscript
+ - `sup`: Superscript
+ - `abbr`: Abbreviation
 
 ## CSS Styling
 

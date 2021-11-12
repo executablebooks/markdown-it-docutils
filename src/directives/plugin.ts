@@ -1,18 +1,7 @@
-import type MarkdownIt from "markdown-it"
+import type MarkdownIt from "markdown-it/lib"
 import type StateCore from "markdown-it/lib/rules_core/state_core"
-import type Token from "markdown-it/lib/token"
 import directiveToData, { Directive } from "./main"
-
-/** Allowed options for directive plugin */
-export interface IOptions {
-  /** Replace fence tokens with directive tokens, if there language is of the form `{name}` */
-  replaceFences?: boolean
-  /** Core rule to run directives after (default: block or fence_to_directive) */
-  directivesAfter?: string
-  /** Mapping of names to directives */
-  directives?: { [key: string]: typeof Directive }
-  // TODO new token render rules
-}
+import { IOptions } from "./types"
 
 export default function directivePlugin(md: MarkdownIt, options: IOptions): void {
   let after = options.directivesAfter || "block"
@@ -23,11 +12,11 @@ export default function directivePlugin(md: MarkdownIt, options: IOptions): void
   md.core.ruler.after(after, "run_directives", runDirectives(options.directives || {}))
 
   // fallback renderer for unhandled directives
-  md.renderer.rules["directive"] = (tokens: Token[], idx: number) => {
+  md.renderer.rules["directive"] = (tokens, idx) => {
     const token = tokens[idx]
     return `<aside class="directive-unhandled">\n<header><mark>${token.info}</mark><code> ${token.meta.arg}</code></header>\n<pre>${token.content}</pre></aside>\n`
   }
-  md.renderer.rules["directive_error"] = (tokens: Token[], idx: number) => {
+  md.renderer.rules["directive_error"] = (tokens, idx) => {
     const token = tokens[idx]
     let content = ""
     if (token.content) {
@@ -72,8 +61,8 @@ function runDirectives(directives: {
           errorToken.info = token.info
           errorToken.meta = token.meta
           errorToken.map = token.map
-          errorToken.meta.error_message = err.message
-          errorToken.meta.error_name = err.name
+          errorToken.meta.error_message = (err as Error).message
+          errorToken.meta.error_name = (err as Error).name
           finalTokens.push(errorToken)
         }
       } else {
