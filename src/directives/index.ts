@@ -14,4 +14,10 @@ import { images } from "./images"
 import { tables } from "./tables"
 import { math } from "./math"
 
-export const directives = { ...admonitions, ...images, ...code, ...tables, ...math }
+export const directivesDefault = {
+  ...admonitions,
+  ...images,
+  ...code,
+  ...tables,
+  ...math
+}

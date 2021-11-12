@@ -7,4 +7,4 @@ import { main } from "./main"
 import { math } from "./math"
 import { html } from "./html"
 
-export const roles = { ...main, ...html, ...math }
+export const rolesDefault = { ...main, ...html, ...math }
