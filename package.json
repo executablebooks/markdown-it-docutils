@@ -21,7 +21,8 @@
     ".": {
       "require": "./dist/umd/index.js",
       "import": "./dist/mjs/index.js"
-    }
+    },
+    "./dist/css/": "./dist/css/"
   },
   "scripts": {
     "format": "prettier --write src/**/*.ts tests/**/*.ts src/**/*.scss",
