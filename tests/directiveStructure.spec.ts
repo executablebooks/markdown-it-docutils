@@ -109,7 +109,21 @@ describe("directive parser", () => {
       args: [],
       options: { a: "1" },
       body: "content\nlines",
-      bodyMap: [4, 4] // TODO this looks wrong
+      bodyMap: [3, 4]
+    })
+  })
+  it("parses a directive with options as : and content with no newline", () => {
+    const token = new DirectiveToken("name", "", ":a: 1\ncontent\nlines", [0, 4])
+    const output = directiveToData(token, {
+      has_content: true,
+      option_spec: { a: unchanged }
+    })
+    expect(output).toEqual({
+      map: [0, 4],
+      args: [],
+      options: { a: "1" },
+      body: "content\nlines",
+      bodyMap: [2, 3]
     })
   })
 })

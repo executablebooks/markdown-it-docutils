@@ -197,6 +197,7 @@ export default function directiveToData(
   // remove first line of body if blank, to allow space between the options and the content
   if (body.length && !body[0].trim()) {
     body.shift()
+    bodyOffset++
   }
   // check for body content
   if (body.length && !directive.has_content) {
@@ -248,14 +249,13 @@ function parseDirectiveOptions(
     }
     content = newContent
   } else if (content.length && content[0].startsWith(":")) {
-    bodyOffset++
     const newContent: string[] = []
     yamlBlock = []
     let foundDivider = false
     for (const line of content) {
       if (!foundDivider && !line.startsWith(":")) {
-        bodyOffset++
         foundDivider = true
+        newContent.push(line)
         continue
       }
       if (foundDivider) {
