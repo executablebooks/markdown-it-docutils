@@ -20,7 +20,8 @@
   "exports": {
     ".": {
       "require": "./dist/umd/index.js",
-      "import": "./dist/mjs/index.js"
+      "import": "./dist/mjs/index.js",
+      "style": "./dist/css/style.min.css"
     }
   },
   "scripts": {
