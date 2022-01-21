@@ -33,7 +33,10 @@ In the browser:
     <body>
         <div id="demo"></div>
         <script>
-            const text = window.markdownit().use(window.markdownitDocutils).render("*a*");
+            const text = window
+              .markdownit()
+              .use(window.markdownitDocutils.default)
+              .render("*a*");
             document.getElementById("demo").innerHTML = text
         </script>
     </body>
