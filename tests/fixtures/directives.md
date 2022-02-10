@@ -22,6 +22,18 @@ Some *content*
 </aside>
 .
 
+admonition
+.
+```{seealso}
+See other things here!
+```
+.
+<aside class="admonition seealso">
+<header class="admonition-title">See Also</header>
+<p>See other things here!</p>
+</aside>
+.
+
 nested-admonition
 .
 ````{note} This is a note
