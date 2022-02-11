@@ -49,7 +49,7 @@ export const html = {
   subscript: Subscript,
   sub: Subscript,
   // Superscript
-  superscript: Subscript,
+  superscript: Superscript,
   sup: Superscript,
   // Abbreviation
   abbreviation: Abbreviation,
