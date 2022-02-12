@@ -35,4 +35,6 @@ export function docutilsPlugin(md: MarkdownIt, options?: IOptions): void {
   directivePlugin(md, fullOptions)
 }
 
+// Note: Exporting default and the function as a named export.
+//       This helps with Jest integration in downstream packages.
 export default docutilsPlugin
