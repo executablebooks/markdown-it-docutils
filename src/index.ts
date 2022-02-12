@@ -28,9 +28,13 @@ const OptionDefaults: IOptions = {
 /**
  * A markdown-it plugin for implementing docutils style roles and directives.
  */
-export default function docutilsPlugin(md: MarkdownIt, options?: IOptions): void {
+export function docutilsPlugin(md: MarkdownIt, options?: IOptions): void {
   const fullOptions = { ...OptionDefaults, ...options }
 
   rolePlugin(md, fullOptions)
   directivePlugin(md, fullOptions)
 }
+
+// Note: Exporting default and the function as a named export.
+//       This helps with Jest integration in downstream packages.
+export default docutilsPlugin
