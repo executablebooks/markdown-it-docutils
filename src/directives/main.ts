@@ -182,11 +182,7 @@ export default function directiveToData(
     ;[body, options, bodyOffset] = parseDirectiveOptions(body, directive)
   }
   let args: string[] = []
-  if (
-    !directive.required_arguments &&
-    !directive.optional_arguments &&
-    !Object.keys(options).length
-  ) {
+  if (!directive.required_arguments && !directive.optional_arguments) {
     if (firstLine) {
       bodyOffset = 0
       body = [firstLine].concat(body)

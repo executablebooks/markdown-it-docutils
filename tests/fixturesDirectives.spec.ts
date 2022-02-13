@@ -7,7 +7,11 @@ describe("Parses directives", () => {
   readFixtures("directives").forEach(([name, text, expected]) => {
     const mdit = MarkdownIt().use(docutils_plugin)
     const rendered = mdit.render(text)
-    // console.log(rendered)
+    it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
+  })
+  readFixtures("directives.admonitions").forEach(([name, text, expected]) => {
+    const mdit = MarkdownIt().use(docutils_plugin)
+    const rendered = mdit.render(text)
     it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
   })
 })
@@ -20,7 +24,6 @@ describe("Parses math directives", () => {
       return `<div class="math block">\n${tokens[idx].content.trimRight()}\n</div>`
     }
     const rendered = mdit.render(text)
-    // console.log(rendered)
     it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
   })
 })
