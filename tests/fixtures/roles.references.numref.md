@@ -44,8 +44,8 @@ The reference to {ref}`test3` and {ref}`test4`.
 <a href="#test3" title="Fig 1">This is 1: 1</a>
 <a href="#test4" title="Fig 2">This is 2: 2</a>
 <a href="#test4" title="Fig 2">This is 2: 2</a>
-<span class="error">test5</span>
-<span class="error">Not there &quot;test5&quot;</span>
-<span class="error">Not there &quot;test5&quot;</span>
-<span class="error">Not there {number}</span></p>
+<code class="error">test5</code>
+<code class="error">Not there &quot;test5&quot;</code>
+<code class="error">Not there &quot;test5&quot;</code>
+<code class="error">Not there {number}</code></p>
 .

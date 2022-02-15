@@ -18,7 +18,7 @@ function numberingRule(options: IOptions): RuleCore {
 
       const setError = (details: string, error?: Target) => {
         tokens.open.attrJoin("class", "error")
-        tokens.open.tag = tokens.close.tag = "span"
+        tokens.open.tag = tokens.close.tag = "code"
         if (contentFromTarget && error) {
           tokens.content.content = contentFromTarget(error)
         } else {
