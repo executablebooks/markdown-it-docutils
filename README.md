@@ -59,7 +59,16 @@ By default (see `parseRoles` option), roles are parsed according to the MyST syn
 
 All roles have a fallback renderer, but the the following are specifically handled:
 
-- `raw`
+- HTML:
+  - `sub`: Subscript (alternatively `subscript`)
+  - `sup`: Superscript (alternatively `superscript`)
+  - `abbr`: Abbreviation (alternatively `abbreviation`)
+- Referencing
+  - `eq`: Reference labeled equations
+  - `ref`: Reference any labeled or named block, showing title
+  - `numref`: Numbered reference for any labeled or named block (use `Figure %s <my_label>`)
+- Basic:
+  - `raw`
 
 ## Supported directives (block extensions)
 
@@ -104,10 +113,6 @@ All directives have a fallback renderer, but the the following are specifically 
   - `code-cell`
 - Tables:
   - `list-table`
-- HTML:
-  - `sub`: Subscript
-  - `sup`: Superscript
-  - `abbr`: Abbreviation
 - Other:
   - `math`
 
