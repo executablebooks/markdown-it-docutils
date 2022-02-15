@@ -1,7 +1,7 @@
 import type MarkdownIt from "markdown-it"
 import { RuleCore } from "markdown-it/lib/parser_core"
 import type StateCore from "markdown-it/lib/rules_core/state_core"
-import { getDocState } from "./utils"
+import { getDocState, Target } from "./utils"
 
 /** Allowed options for state plugin */
 export interface IOptions {
@@ -16,15 +16,25 @@ function numberingRule(options: IOptions): RuleCore {
     env.references.forEach(ref => {
       const { name, tokens, contentFromTarget } = ref
 
-      function setError(details: string) {
+      const setError = (details: string, error?: Target) => {
         tokens.open.attrJoin("class", "error")
         tokens.open.tag = tokens.close.tag = "span"
-        tokens.content.content = details
+        if (contentFromTarget && error) {
+          tokens.content.content = contentFromTarget(error)
+        } else {
+          tokens.content.content = details
+        }
         return true
       }
 
       const target = env.targets[name]
-      if (!target) return setError(name)
+      if (!target)
+        return setError(name, {
+          kind: ref.kind || "",
+          name,
+          title: name,
+          number: `"${name}"`
+        })
       if (ref.kind && target.kind !== ref.kind) {
         return setError(`Reference "${name}" does not match kind "${ref.kind}"`)
       }

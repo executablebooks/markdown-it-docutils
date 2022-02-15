@@ -28,10 +28,11 @@ export class NumRef extends Role {
     const close = new this.state.Token("ref_close", "a", -1)
     resolveRefLater(this.state, { open, content, close }, ref || data.content, {
       contentFromTarget: target => {
-        if (!match) return target.title
+        if (!match) return target.title.trim()
         return modified
           .replace(/%s/g, String(target.number))
           .replace(/\{number\}/g, String(target.number))
+          .trim()
       }
     })
     return [open, content, close]

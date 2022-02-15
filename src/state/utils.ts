@@ -13,7 +13,7 @@ export type Target = {
   name: string
   kind: TargetKind | string
   title: string
-  number: number
+  number: number | string
 }
 
 export type Reference = {

@@ -19,6 +19,10 @@ The reference to {ref}`test3` and {ref}`test4`.
 {numref}`This is 1: %s <test3>`
 {numref}`This is 2: %s <test4>`
 {numref}`This is 2: {number} <test4>`
+{numref}`test5`
+{numref}`Not there %s <test5>`
+{numref}`Not there {number} <test5>`
+{numref}`Not there {number}`
 .
 <figure id="test3" class="numbered">
 <img src="https://via.placeholder.com/150" alt="">
@@ -39,5 +43,9 @@ The reference to {ref}`test3` and {ref}`test4`.
 <a href="#test4" title="Fig 2">Hi 2</a>
 <a href="#test3" title="Fig 1">This is 1: 1</a>
 <a href="#test4" title="Fig 2">This is 2: 2</a>
-<a href="#test4" title="Fig 2">This is 2: 2</a></p>
+<a href="#test4" title="Fig 2">This is 2: 2</a>
+<span class="error">test5</span>
+<span class="error">Not there &quot;test5&quot;</span>
+<span class="error">Not there &quot;test5&quot;</span>
+<span class="error">Not there {number}</span></p>
 .
