@@ -34,14 +34,14 @@ of an admonition on two lines.</p>
 </aside>
 .
 
-Admonition with overridding class name:
+Admonition with overridding class name
 .
 ```{admonition} This is a title
 :class: tip
 An example of a `tip` with a custom _title_.
 ```
 .
-<aside class="admonition tip">
+<aside class="tip admonition">
 <header class="admonition-title">This is a title</header>
 <p>An example of a <code>tip</code> with a custom <em>title</em>.</p>
 </aside>
@@ -192,7 +192,7 @@ See other things here!
 See other things here!
 ```
 .
-<aside class="admonition seealso tip">
+<aside class="tip admonition seealso">
 <header class="admonition-title">See Also</header>
 <p>Not a title
 See other things here!</p>
@@ -208,7 +208,7 @@ See other things here!</p>
 See other things here!
 ```
 .
-<aside class="admonition seealso tip">
+<aside class="tip admonition seealso">
 <header class="admonition-title">See Also</header>
 <p>Not a title</p>
 <p>See other things here!</p>
