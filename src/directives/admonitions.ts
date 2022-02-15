@@ -27,11 +27,16 @@ class BaseAdmonition extends Directive {
       map: data.map,
       block: true
     })
-    adToken.attrSet("class", "admonition")
-    if (this.title)
+    if (data.options.class?.length >= 1) {
+      // Custom class information must go first for styling
+      // For example, `class=tip, kind=seealso` should be styled as a `tip`
+      adToken.attrSet("class", data.options.class.join(" "))
+      adToken.attrJoin("class", "admonition")
+    } else {
+      adToken.attrSet("class", "admonition")
+    }
+    if (this.title) {
       adToken.attrJoin("class", this.title.toLowerCase().replace(/ /g, ""))
-    if (data.options.class) {
-      adToken.attrJoin("class", data.options.class.join(" "))
     }
     newTokens.push(adToken)
 
