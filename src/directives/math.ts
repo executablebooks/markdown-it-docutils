@@ -1,5 +1,6 @@
 /** Admonitions to visualise programming codes */
 import type Token from "markdown-it/lib/token"
+import { newTarget, TargetKind } from "../state/utils"
 import { Directive, IDirectiveData } from "./main"
 import { unchanged } from "./options"
 
@@ -23,6 +24,8 @@ export class Math extends Directive {
     })
     token.attrSet("class", "math block")
     if (data.options.label) {
+      token.attrSet("id", data.options.label)
+      newTarget(this.state, token, TargetKind.equation, data.options.label, "")
       token.info = data.options.label
       token.meta = { label: data.options.label, numbered: true }
     }
