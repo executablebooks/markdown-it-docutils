@@ -1,6 +1,7 @@
 import StateCore from "markdown-it/lib/rules_core/state_core"
 import Token from "markdown-it/lib/token"
 
+/** The kind of the target as a TargetKind enum ('fig', 'eq', etc.) */
 export enum TargetKind {
   equation = "eq",
   figure = "fig",
@@ -9,31 +10,50 @@ export enum TargetKind {
   section = "sec"
 }
 
+/**
+ * Targets are created by figures or equations.
+ * They are "things" that you can reference in documentation, e.g. Figure 1.
+ */
 export type Target = {
+  /** The identifier or label of the target. */
   name: string
+  /** TargetKind enum ('fig', 'eq', etc.) or a custom string */
   kind: TargetKind | string
-  title: string
+  /** The default title that may be resolved in other places in a document. */
+  title: string // TODO: This should support markdown.
+  /** This is the number that will be given to this target.
+   * Note that it may be a `Number` or a `String` depending on
+   * if there is Section numbering in place (e.g. `Figure 1.2`)
+   */
   number: number | string
 }
 
 export type Reference = {
+  /** The identifier or label of the target. */
   name: string
   tokens: { open: Token; content: Token; close: Token }
+  /** TargetKind enum ('fig', 'eq', etc.) or a custom string */
   kind?: TargetKind | string
+  /** Return the content that should be shown in a reference given a target.
+   *
+   * For example, in a `numref`, you will replace `%s` with the `target.number`.
+   */
   contentFromTarget?: (target: Target) => string
 }
 
+/**
+ * The `DocState` keeps track of targets, references and numbering.
+ *
+ * This is on the the state.env (see `getDocState`), and there
+ * should only be one per markdown-it instance.
+ */
 export type DocState = {
   // Targets are something to link to, they are aranged by `name`, use `newTarget`
   targets: Record<string, Target>
   // Use `resolveRefLater` function to provide a reference that will resolve
   references: Reference[]
   // Keep track of numbering totals for any known, or arbitrary targets
-  numbering: Record<TargetKind | string, number>
-}
-
-export type MetaState = {
-  target: Target
+  numbering: Record<TargetKind | string, number> // TODO: this can also be a string
 }
 
 /** Safely create the document state for docutils */
@@ -46,7 +66,19 @@ export function getDocState(state: StateCore): DocState {
   return env
 }
 
-/** Safely create a namespaced meta information on a token */
+/**
+ * This is the information on `token.meta.docutils`
+ */
+export type MetaState = {
+  /** Target included in the `token.meta.docutils` state. */
+  target: Target
+}
+
+/**
+ * Safely create a namespaced meta information on a token
+ * @param token A markdown-it token that will contain the target
+ * @returns An object containing a `Target`
+ */
 export function getNamespacedMeta(token: Token): MetaState {
   const meta = token.meta?.docutils ?? {}
   if (!token.meta) token.meta = {}
@@ -103,6 +135,14 @@ export function newTarget(
   return target
 }
 
+/**
+ * Resolve a reference **in-place** in a following numbering pass.
+ *
+ * @param state Reference to the state object
+ * @param tokens The open/content/close tokens of the reference
+ * @param name Name/label/identifier of the target
+ * @param opts Includes the reference `kind` and an optional way to create the reference content
+ */
 export function resolveRefLater(
   state: StateCore,
   tokens: Reference["tokens"],
