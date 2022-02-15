@@ -24,8 +24,11 @@ export type Reference = {
 }
 
 export type DocState = {
+  // Targets are something to link to, they are aranged by `name`, use `newTarget`
   targets: Record<string, Target>
+  // Use `resolveRefLater` function to provide a reference that will resolve
   references: Reference[]
+  // Keep track of numbering totals for any known, or arbitrary targets
   numbering: Record<TargetKind | string, number>
 }
 
@@ -53,7 +56,7 @@ export function getNamespacedMeta(token: Token): MetaState {
 
 /** Get the next number for an equation, figure, code or table
  *
- * Can input `{ docutils: { numbering: { equation: 100 } } }` to start counting at a different number.
+ * Can input `{ docutils: { numbering: { eq: 100 } } }` to start counting at a different number.
  *
  * @param state MarkdownIt state that will be modified
  */
