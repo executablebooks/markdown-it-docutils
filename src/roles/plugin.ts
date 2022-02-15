@@ -72,7 +72,7 @@ function runRoles(roles: {
         const childTokens = []
         for (const child of token.children) {
           // TODO role name translations
-          if (child.type === "role" && child.meta && child.meta.name in roles) {
+          if (child.type === "role" && child.meta?.name in roles) {
             try {
               const role = new roles[child.meta.name](state)
               const newTokens = role.run({

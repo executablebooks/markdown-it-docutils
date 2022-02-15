@@ -1,5 +1,6 @@
 /** Directives for image visualisation */
 import type Token from "markdown-it/lib/token"
+import { newTarget, TargetKind } from "../state/utils"
 import { Directive, IDirectiveData } from "./main"
 import {
   class_option,
@@ -42,7 +43,7 @@ export class Image extends Directive {
     // get URI
     const src = uri(data.args[0] || "")
 
-    const token = this.createToken("image", "img", 0, { map: data.map })
+    const token = this.createToken("image", "img", 0, { map: data.map, block: true })
     token.attrSet("src", src)
     token.attrSet("alt", data.options.alt || "")
     // TODO markdown-it default renderer requires the alt as children tokens
@@ -90,7 +91,10 @@ export class Figure extends Image {
   }
   public has_content = true
   run(data: IDirectiveData<keyof Figure["option_spec"]>): Token[] {
-    const openToken = this.createToken("figure_open", "figure", 1, { map: data.map })
+    const openToken = this.createToken("figure_open", "figure", 1, {
+      map: data.map,
+      block: true
+    })
     if (data.options.figclass) {
       openToken.attrJoin("class", data.options.figclass.join(" "))
     }
@@ -101,18 +105,33 @@ export class Figure extends Image {
       // TODO handle figwidth == "image"?
       openToken.attrSet("width", data.options.figwidth)
     }
+    if (data.options.name) {
+      // TODO: figure out how to pass silent here
+      newTarget(
+        this.state,
+        openToken,
+        TargetKind.figure,
+        data.options.name,
+        // TODO: a better title?
+        data.body.trim()
+      )
+    }
     const imageToken = this.create_image(data)
     imageToken.map = [data.map[0], data.map[0]]
     let captionTokens: Token[] = []
     if (data.body) {
-      const openCaption = this.createToken("figure_caption_open", "figcaption", 1)
+      const openCaption = this.createToken("figure_caption_open", "figcaption", 1, {
+        block: true
+      })
       // TODO in docutils caption can only be single paragraph (or ignored if comment)
       // then additional content is figure legend
       const captionBody = this.nestedParse(data.body, data.bodyMap[0])
-      const closeCaption = this.createToken("figure_caption_close", "figcaption", -1)
+      const closeCaption = this.createToken("figure_caption_close", "figcaption", -1, {
+        block: true
+      })
       captionTokens = [openCaption, ...captionBody, closeCaption]
     }
-    const closeToken = this.createToken("figure_close", "figure", -1)
+    const closeToken = this.createToken("figure_close", "figure", -1, { block: true })
     return [openToken, imageToken, ...captionTokens, closeToken]
   }
 }

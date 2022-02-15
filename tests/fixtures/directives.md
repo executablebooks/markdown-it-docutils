@@ -37,8 +37,12 @@ figure
 A **caption**
 ```
 .
-<figure class="align-center"><img src="https://via.placeholder.com/150" alt="" class="align-center"><figcaption><p>A <strong>caption</strong></p>
-</figcaption></figure>
+<figure class="align-center">
+<img src="https://via.placeholder.com/150" alt="" class="align-center">
+<figcaption>
+<p>A <strong>caption</strong></p>
+</figcaption>
+</figure>
 .
 
 code

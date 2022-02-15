@@ -14,6 +14,11 @@ describe("Parses directives", () => {
     const rendered = mdit.render(text)
     it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
   })
+  readFixtures("directives.images").forEach(([name, text, expected]) => {
+    const mdit = MarkdownIt().use(docutils_plugin)
+    const rendered = mdit.render(text)
+    it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
+  })
 })
 
 describe("Parses math directives", () => {
