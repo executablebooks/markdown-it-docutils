@@ -12,7 +12,7 @@ export class Eq extends Role {
     resolveRefLater(this.state, { open, content, close }, data.content, {
       kind: TargetKind.equation,
       contentFromTarget: target => {
-        return target.title
+        return `(${target.number})`
       }
     })
     return [open, content, close]
