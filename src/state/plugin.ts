@@ -24,9 +24,7 @@ function numberingRule(options: IOptions): RuleCore {
       }
 
       const target = env.targets[name]
-      if (!target) {
-        return setError(`Reference "${name}" not found`)
-      }
+      if (!target) return setError(name)
       if (ref.kind && target.kind !== ref.kind) {
         return setError(`Reference "${name}" does not match kind "${ref.kind}"`)
       }
