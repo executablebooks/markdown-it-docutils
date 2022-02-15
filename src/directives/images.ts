@@ -1,6 +1,6 @@
 /** Directives for image visualisation */
 import type Token from "markdown-it/lib/token"
-import { newTarget, TargetKind } from "../state/utils"
+import { newTarget, Target, TargetKind } from "../state/utils"
 import { Directive, IDirectiveData } from "./main"
 import {
   class_option,
@@ -105,9 +105,10 @@ export class Figure extends Image {
       // TODO handle figwidth == "image"?
       openToken.attrSet("width", data.options.figwidth)
     }
+    let target: Target | undefined
     if (data.options.name) {
       // TODO: figure out how to pass silent here
-      newTarget(
+      target = newTarget(
         this.state,
         openToken,
         TargetKind.figure,
@@ -115,6 +116,7 @@ export class Figure extends Image {
         // TODO: a better title?
         data.body.trim()
       )
+      openToken.attrJoin("class", "numbered")
     }
     const imageToken = this.create_image(data)
     imageToken.map = [data.map[0], data.map[0]]
@@ -123,6 +125,9 @@ export class Figure extends Image {
       const openCaption = this.createToken("figure_caption_open", "figcaption", 1, {
         block: true
       })
+      if (target) {
+        openCaption.attrSet("number", `${target.number}`)
+      }
       // TODO in docutils caption can only be single paragraph (or ignored if comment)
       // then additional content is figure legend
       const captionBody = this.nestedParse(data.body, data.bodyMap[0])

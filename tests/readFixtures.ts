@@ -24,6 +24,8 @@ export function basicMathRenderer(mdit: MarkdownIt): void {
     const token = tokens[idx]
     return `<div class="math block"${
       token.meta?.label ? ` id="${token.meta.label}"` : ""
+    }${
+      token.meta?.number ? ` number="${token.meta.number}"` : ""
     }>\n${token.content.trimRight()}\n</div>\n`
   }
 }

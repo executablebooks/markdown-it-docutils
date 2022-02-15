@@ -20,15 +20,15 @@ The reference to {ref}`test3` and {ref}`test4`.
 {numref}`This is 2: %s <test4>`
 {numref}`This is 2: {number} <test4>`
 .
-<figure id="test3">
+<figure id="test3" class="numbered">
 <img src="https://via.placeholder.com/150" alt="">
-<figcaption>
+<figcaption number="1">
 <p>Fig 1</p>
 </figcaption>
 </figure>
-<figure id="test4">
+<figure id="test4" class="numbered">
 <img src="https://via.placeholder.com/150" alt="">
-<figcaption>
+<figcaption number="2">
 <p>Fig 2</p>
 </figcaption>
 </figure>
