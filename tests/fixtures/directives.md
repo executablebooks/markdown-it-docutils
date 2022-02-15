@@ -43,6 +43,45 @@ A **caption**
 <p>A <strong>caption</strong></p>
 </figcaption>
 </figure>
+admonition
+.
+```{admonition} A **Title**
+Some *content*
+```
+.
+<aside class="admonition">
+<header class="admonition-title">A <strong>Title</strong></header>
+<p>Some <em>content</em></p>
+</aside>
+.
+
+admonition
+.
+```{seealso}
+See other things here!
+```
+.
+<aside class="admonition seealso">
+<header class="admonition-title">See Also</header>
+<p>See other things here!</p>
+</aside>
+.
+
+nested-admonition
+.
+````{note} This is a note
+```{warning} This is a nested warning
+```
+````
+.
+<aside class="admonition note">
+<header class="admonition-title">Note</header>
+<p>This is a note</p>
+<aside class="admonition warning">
+<header class="admonition-title">Warning</header>
+<p>This is a nested warning</p>
+</aside>
+</aside>
 .
 
 code

@@ -1,4 +1,4 @@
-Testing named figures and numbered references:
+Testing named figures and numbered references
 .
 ```{figure} https://via.placeholder.com/150
 :name: test3
