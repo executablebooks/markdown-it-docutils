@@ -146,15 +146,19 @@ export function newTarget(
 export function resolveRefLater(
   state: StateCore,
   tokens: Reference["tokens"],
-  name: string,
+  data: { name: string; kind: string; value?: string },
   opts?: {
     kind?: TargetKind
     contentFromTarget?: Reference["contentFromTarget"]
   }
 ): void {
+  tokens.open.meta = tokens.open.meta ?? {}
+  tokens.open.meta.kind = data.kind
+  tokens.open.meta.name = data.name
+  tokens.open.meta.value = data.value
   const env = getDocState(state)
   env.references.push({
-    name,
+    name: data.name,
     tokens,
     ...opts
   })
