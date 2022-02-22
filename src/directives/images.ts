@@ -93,7 +93,8 @@ export class Figure extends Image {
   run(data: IDirectiveData<keyof Figure["option_spec"]>): Token[] {
     const openToken = this.createToken("figure_open", "figure", 1, {
       map: data.map,
-      block: true
+      block: true,
+      meta: { ...data.options }
     })
     if (data.options.figclass) {
       openToken.attrJoin("class", data.options.figclass.join(" "))

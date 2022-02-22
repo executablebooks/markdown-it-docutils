@@ -22,10 +22,12 @@ class BaseAdmonition extends Directive {
     const newTokens: Token[] = []
 
     // we create an overall container, then individual containers for the title and body
+    const kind = this.title.toLowerCase().replace(/ /g, "")
 
     const adToken = this.createToken("admonition_open", "aside", 1, {
       map: data.map,
-      block: true
+      block: true,
+      meta: { kind, ...data.options }
     })
     if (data.options.class?.length >= 1) {
       // Custom class information must go first for styling
