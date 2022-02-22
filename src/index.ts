@@ -6,6 +6,7 @@ import {
   directivePlugin,
   IDirectiveOptions
 } from "./directives"
+import statePlugin from "./state/plugin"
 
 export { rolesDefault, rolePlugin, Role }
 export { directivesDefault, directivePlugin, Directive }
@@ -31,8 +32,9 @@ const OptionDefaults: IOptions = {
 export function docutilsPlugin(md: MarkdownIt, options?: IOptions): void {
   const fullOptions = { ...OptionDefaults, ...options }
 
-  rolePlugin(md, fullOptions)
-  directivePlugin(md, fullOptions)
+  md.use(rolePlugin, fullOptions)
+  md.use(directivePlugin, fullOptions)
+  md.use(statePlugin, fullOptions)
 }
 
 // Note: Exporting default and the function as a named export.

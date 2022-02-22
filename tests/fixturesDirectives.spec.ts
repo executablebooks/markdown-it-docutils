@@ -1,7 +1,7 @@
 /* eslint-disable jest/valid-title */
 import MarkdownIt from "markdown-it"
 import docutils_plugin from "../src"
-import readFixtures from "./readFixtures"
+import readFixtures, { basicMathRenderer } from "./readFixtures"
 
 describe("Parses directives", () => {
   readFixtures("directives").forEach(([name, text, expected]) => {
@@ -14,15 +14,17 @@ describe("Parses directives", () => {
     const rendered = mdit.render(text)
     it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
   })
+  readFixtures("directives.images").forEach(([name, text, expected]) => {
+    const mdit = MarkdownIt().use(docutils_plugin)
+    const rendered = mdit.render(text)
+    it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
+  })
 })
 
 describe("Parses math directives", () => {
   readFixtures("directives.math").forEach(([name, text, expected]) => {
     const mdit = MarkdownIt().use(docutils_plugin)
-    // TODO for now we add a basic renderer
-    mdit.renderer.rules.math_block = (tokens, idx) => {
-      return `<div class="math block">\n${tokens[idx].content.trimRight()}\n</div>`
-    }
+    basicMathRenderer(mdit)
     const rendered = mdit.render(text)
     it(name, () => expect(rendered.trim()).toEqual((expected || "").trim()))
   })

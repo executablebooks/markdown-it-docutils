@@ -24,22 +24,27 @@ In the browser:
 ```html
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Example Page</title>
-        <script src="https://cdn.jsdelivr.net/npm/markdown-it@12/dist/markdown-it.min.js"></script>
-        <script src="https://unpkg.com/markdown-it-docutils"></script>
-        <link rel="stylesheet" type="text/css" media="screen" href="https://unpkg.com/markdown-it-docutils/dist/css/style.min.css" />
-    </head>
-    <body>
-        <div id="demo"></div>
-        <script>
-            const text = window
-              .markdownit()
-              .use(window.markdownitDocutils.default)
-              .render("*a*");
-            document.getElementById("demo").innerHTML = text
-        </script>
-    </body>
+  <head>
+    <title>Example Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@12/dist/markdown-it.min.js"></script>
+    <script src="https://unpkg.com/markdown-it-docutils"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="https://unpkg.com/markdown-it-docutils/dist/css/style.min.css"
+    />
+  </head>
+  <body>
+    <div id="demo"></div>
+    <script>
+      const text = window
+        .markdownit()
+        .use(window.markdownitDocutils.default)
+        .render("*a*")
+      document.getElementById("demo").innerHTML = text
+    </script>
+  </body>
 </html>
 ```
 
@@ -54,7 +59,16 @@ By default (see `parseRoles` option), roles are parsed according to the MyST syn
 
 All roles have a fallback renderer, but the the following are specifically handled:
 
-- `raw`
+- HTML:
+  - `sub`: Subscript (alternatively `subscript`)
+  - `sup`: Superscript (alternatively `superscript`)
+  - `abbr`: Abbreviation (alternatively `abbreviation`)
+- Referencing
+  - `eq`: Reference labeled equations
+  - `ref`: Reference any labeled or named block, showing title
+  - `numref`: Numbered reference for any labeled or named block (use `Figure %s <my_label>`)
+- Basic:
+  - `raw`
 
 ## Supported directives (block extensions)
 
@@ -99,12 +113,8 @@ All directives have a fallback renderer, but the the following are specifically 
   - `code-cell`
 - Tables:
   - `list-table`
-- HTML:
-  - `sub`: Subscript
-  - `sup`: Superscript
-  - `abbr`: Abbreviation
 - Other:
-  - `math` 
+  - `math`
 
 ## CSS Styling
 
@@ -153,7 +163,7 @@ Now you can start to adapt the code in `src/index.ts` for your plugin, starting 
 
 Modify the test in `tests/fixtures.spec.ts`, to load your plugin, then the "fixtures" in `tests/fixtures`, to provide a set of potential Markdown inputs and expected HTML outputs.
 
-On commits/PRs to the `master` branch, the GH actions will trigger, running the linting, unit tests, and build tests.
+On commits/PRs to the `main` branch, the GH actions will trigger, running the linting, unit tests, and build tests.
 Additionally setup and uncomment the [codecov](https://about.codecov.io/) action in `.github/workflows/ci.yml`, to provide automated CI coverage.
 
 Finally, you can update the version of your package, e.g.: `npm version patch -m "🚀 RELEASE: v%s"`, push to GitHub; `git push --follow-tags`, build; `npm run build`, and publish; `npm publish`.
@@ -165,12 +175,11 @@ This can be deployed by [GitHub Pages].
 [ci-link]: https://github.com/executablebooks/markdown-it-docutils/actions
 [npm-badge]: https://img.shields.io/npm/v/markdown-it-docutils.svg
 [npm-link]: https://www.npmjs.com/package/markdown-it-docutils
-
-[GitHub Actions]: https://docs.github.com/en/actions
-[GitHub Pages]: https://docs.github.com/en/pages
+[github actions]: https://docs.github.com/en/actions
+[github pages]: https://docs.github.com/en/pages
 [prettier]: https://prettier.io/
 [eslint]: https://eslint.org/
-[Jest]: https://facebook.github.io/jest/
-[Rollup]: https://rollupjs.org
+[jest]: https://facebook.github.io/jest/
+[rollup]: https://rollupjs.org
 [npm]: https://www.npmjs.com
 [unpkg]: https://unpkg.com/

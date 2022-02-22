@@ -32,6 +32,7 @@
     "lint": "eslint -c .eslintrc.yml --max-warnings 1 src/**/*.ts tests/**/*.ts",
     "lint:fix": "eslint -c .eslintrc.yml --fix src/**/*.ts tests/**/*.ts",
     "test": "jest",
+    "test:watch": "jest --watchAll",
     "test:cov": "jest --coverage",
     "sass": "sass --style=compressed --source-map --embed-sources src/style/index.sass dist/css/style.min.css && postcss dist/css/style.min.css --use autoprefixer -d dist/css/",
     "build:bundles": "rollup -c",
