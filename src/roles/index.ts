@@ -1,4 +1,4 @@
-export { Role, main } from "./main"
+export { Role, main, IRoleData } from "./main"
 export { default as rolePlugin } from "./plugin"
 export type { IOptions as IRoleOptions } from "./types"
 export { math } from "./math"

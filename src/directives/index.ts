@@ -1,5 +1,6 @@
-export { Directive } from "./main"
+export { Directive, IDirectiveData } from "./main"
 export { default as directivePlugin } from "./plugin"
+export * as directiveOptions from "./options"
 export type { IOptions as IDirectiveOptions } from "./types"
 
 export { admonitions } from "./admonitions"
