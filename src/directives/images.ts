@@ -43,7 +43,11 @@ export class Image extends Directive {
     // get URI
     const src = uri(data.args[0] || "")
 
-    const token = this.createToken("image", "img", 0, { map: data.map, block: true })
+    const token = this.createToken("image", "img", 0, {
+      map: data.map,
+      block: true,
+      meta: { ...data.options }
+    })
     token.attrSet("src", src)
     token.attrSet("alt", data.options.alt || "")
     // TODO markdown-it default renderer requires the alt as children tokens

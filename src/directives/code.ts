@@ -94,7 +94,8 @@ export class CodeCell extends Directive {
     const token = this.createToken("fence", "code", 0, {
       info: data.args ? data.args[0] : "",
       content: data.body,
-      map: data.bodyMap
+      map: data.bodyMap,
+      meta: { ...data.options }
     })
     return [token]
   }
