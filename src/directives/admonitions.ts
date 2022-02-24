@@ -21,9 +21,9 @@ class BaseAdmonition extends Directive {
   run(data: IDirectiveData<keyof BaseAdmonition["option_spec"]>): Token[] {
     const newTokens: Token[] = []
 
-    // we create an overall container, then individual containers for the title and body
     const kind = this.title.toLowerCase().replace(/ /g, "")
 
+    // we create an overall container, then individual containers for the title and body
     const adToken = this.createToken("admonition_open", "aside", 1, {
       map: data.map,
       block: true,
