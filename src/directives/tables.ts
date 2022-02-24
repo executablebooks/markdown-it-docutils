@@ -43,7 +43,10 @@ export class ListTable extends Directive {
     const tokens: Token[] = []
 
     // table opening
-    const tableOpen = this.createToken("table_open", "table", 1, { map: data.bodyMap })
+    const tableOpen = this.createToken("table_open", "table", 1, {
+      map: data.bodyMap,
+      meta: { ...data.options }
+    })
     if (data.options.align) {
       tableOpen.attrJoin("class", `align-${data.options.align}`)
     }
