@@ -36,7 +36,8 @@ export class Code extends Directive {
       // TODO if not specified, the language should come from a central configuration "highlight_language"
       info: data.args ? data.args[0] : "",
       content: data.body,
-      map: data.bodyMap
+      map: data.bodyMap,
+      meta: { ...data.options }
     })
     return [token]
   }
@@ -75,7 +76,8 @@ export class CodeBlock extends Directive {
       // TODO if not specified, the language should come from a central configuration "highlight_language"
       info: data.args ? data.args[0] : "",
       content: data.body,
-      map: data.bodyMap
+      map: data.bodyMap,
+      meta: { ...data.options }
     })
     return [token]
   }
