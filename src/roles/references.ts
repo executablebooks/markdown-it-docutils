@@ -12,7 +12,7 @@ export class Eq extends Role {
     resolveRefLater(
       this.state,
       { open, content, close },
-      { kind: "eq", name: data.content },
+      { kind: "eq", label: data.content },
       {
         kind: TargetKind.equation,
         contentFromTarget: target => {
@@ -28,18 +28,18 @@ export class NumRef extends Role {
   run(data: IRoleData): Token[] {
     const match = REF_PATTERN.exec(data.content)
     const [, modified, ref] = match ?? []
-    const withoutName = modified?.trim()
+    const withoutLabel = modified?.trim()
     const open = new this.state.Token("ref_open", "a", 1)
     const content = new this.state.Token("text", "", 0)
     const close = new this.state.Token("ref_close", "a", -1)
     resolveRefLater(
       this.state,
       { open, content, close },
-      { kind: "numref", name: ref || data.content, value: withoutName },
+      { kind: "numref", label: ref || data.content, value: withoutLabel },
       {
         contentFromTarget: target => {
           if (!match) return target.title.trim()
-          return withoutName
+          return withoutLabel
             .replace(/%s/g, String(target.number))
             .replace(/\{number\}/g, String(target.number))
         }
@@ -53,17 +53,17 @@ export class Ref extends Role {
   run(data: IRoleData): Token[] {
     const match = REF_PATTERN.exec(data.content)
     const [, modified, ref] = match ?? []
-    const withoutName = modified?.trim()
+    const withoutLabel = modified?.trim()
     const open = new this.state.Token("ref_open", "a", 1)
     const content = new this.state.Token("text", "", 0)
     const close = new this.state.Token("ref_close", "a", -1)
     resolveRefLater(
       this.state,
       { open, content, close },
-      { kind: "ref", name: ref || data.content, value: withoutName },
+      { kind: "ref", label: ref || data.content, value: withoutLabel },
       {
         contentFromTarget: target => {
-          return withoutName || target.title
+          return withoutLabel || target.title
         }
       }
     )

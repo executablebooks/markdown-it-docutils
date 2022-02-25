@@ -11,7 +11,7 @@ function numberingRule(options: IOptions): RuleCore {
     const env = getDocState(state)
 
     env.references.forEach(ref => {
-      const { name, tokens, contentFromTarget } = ref
+      const { label, tokens, contentFromTarget } = ref
 
       const setError = (details: string, error?: Target) => {
         tokens.open.attrJoin("class", "error")
@@ -24,18 +24,18 @@ function numberingRule(options: IOptions): RuleCore {
         return true
       }
 
-      const target = env.targets[name]
+      const target = env.targets[label]
       if (!target)
-        return setError(name, {
+        return setError(label, {
           kind: ref.kind || "",
-          name,
-          title: name,
-          number: `"${name}"`
+          label,
+          title: label,
+          number: `"${label}"`
         })
       if (ref.kind && target.kind !== ref.kind) {
-        return setError(`Reference "${name}" does not match kind "${ref.kind}"`)
+        return setError(`Reference "${label}" does not match kind "${ref.kind}"`)
       }
-      tokens.open.attrSet("href", `#${target.name}`)
+      tokens.open.attrSet("href", `#${target.label}`)
       if (target.title) tokens.open.attrSet("title", target.title)
       if (contentFromTarget) tokens.content.content = contentFromTarget(target).trim()
     })
