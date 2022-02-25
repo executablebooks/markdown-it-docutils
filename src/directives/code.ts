@@ -36,8 +36,7 @@ export class Code extends Directive {
       // TODO if not specified, the language should come from a central configuration "highlight_language"
       info: data.args ? data.args[0] : "",
       content: data.body,
-      map: data.bodyMap,
-      meta: { ...data.options }
+      map: data.bodyMap
     })
     return [token]
   }
@@ -76,8 +75,7 @@ export class CodeBlock extends Directive {
       // TODO if not specified, the language should come from a central configuration "highlight_language"
       info: data.args ? data.args[0] : "",
       content: data.body,
-      map: data.bodyMap,
-      meta: { ...data.options }
+      map: data.bodyMap
     })
     return [token]
   }
@@ -96,8 +94,7 @@ export class CodeCell extends Directive {
     const token = this.createToken("fence", "code", 0, {
       info: data.args ? data.args[0] : "",
       content: data.body,
-      map: data.bodyMap,
-      meta: { ...data.options }
+      map: data.bodyMap
     })
     return [token]
   }
