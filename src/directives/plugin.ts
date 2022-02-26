@@ -54,6 +54,12 @@ function runDirectives(directives: {
           const directive = new directives[token.info](state)
           const data = directiveToData(token, directive)
           const newTokens = directive.run(data)
+          // Ensure `meta` exists and add the directive options
+          newTokens[0].meta = {
+            directive: true,
+            ...data.options,
+            ...newTokens[0].meta
+          }
           finalTokens.push(...newTokens)
         } catch (err) {
           const errorToken = new state.Token("directive_error", "", 0)

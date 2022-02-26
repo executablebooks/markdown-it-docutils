@@ -16,7 +16,7 @@ export enum TargetKind {
  */
 export type Target = {
   /** The identifier or label of the target. */
-  name: string
+  label: string
   /** TargetKind enum ('fig', 'eq', etc.) or a custom string */
   kind: TargetKind | string
   /** The default title that may be resolved in other places in a document. */
@@ -30,7 +30,7 @@ export type Target = {
 
 export type Reference = {
   /** The identifier or label of the target. */
-  name: string
+  label: string
   tokens: { open: Token; content: Token; close: Token }
   /** TargetKind enum ('fig', 'eq', etc.) or a custom string */
   kind?: TargetKind | string
@@ -105,21 +105,21 @@ function nextNumber(state: StateCore, kind: TargetKind | string) {
 /** Create a new internal target.
  *
  * @param state MarkdownIt state that will be modified
- * @param name The reference name that will be used for the target. Note some directives use label.
+ * @param label The reference label that will be normalized and used to associate the target. Note some directives use "name".
  * @param kind The target kind: "eq", "code", "table" or "fig"
  */
 export function newTarget(
   state: StateCore,
   token: Token,
   kind: TargetKind,
-  name: string,
+  label: string,
   title: string,
   silent = false
 ): Target {
   const env = getDocState(state)
   const number = nextNumber(state, kind)
   const target: Target = {
-    name,
+    label,
     kind,
     number,
     title
@@ -128,9 +128,9 @@ export function newTarget(
     // Put the token in both the token.meta and the central environment
     const meta = getNamespacedMeta(token)
     meta.target = target
-    token.attrSet("id", name)
+    token.attrSet("id", label)
     // TODO: raise error on duplicates
-    env.targets[name] = target
+    env.targets[label] = target
   }
   return target
 }
@@ -146,15 +146,19 @@ export function newTarget(
 export function resolveRefLater(
   state: StateCore,
   tokens: Reference["tokens"],
-  name: string,
+  data: { label: string; kind: string; value?: string },
   opts?: {
     kind?: TargetKind
     contentFromTarget?: Reference["contentFromTarget"]
   }
 ): void {
+  tokens.open.meta = tokens.open.meta ?? {}
+  tokens.open.meta.kind = data.kind
+  tokens.open.meta.label = data.label
+  tokens.open.meta.value = data.value
   const env = getDocState(state)
   env.references.push({
-    name,
+    label: data.label,
     tokens,
     ...opts
   })

@@ -18,14 +18,15 @@ class BaseAdmonition extends Directive {
     name: unchanged
   }
   public title = ""
+  public kind = ""
   run(data: IDirectiveData<keyof BaseAdmonition["option_spec"]>): Token[] {
     const newTokens: Token[] = []
 
     // we create an overall container, then individual containers for the title and body
-
     const adToken = this.createToken("admonition_open", "aside", 1, {
       map: data.map,
-      block: true
+      block: true,
+      meta: { kind: this.kind }
     })
     if (data.options.class?.length >= 1) {
       // Custom class information must go first for styling
@@ -35,8 +36,8 @@ class BaseAdmonition extends Directive {
     } else {
       adToken.attrSet("class", "admonition")
     }
-    if (this.title) {
-      adToken.attrJoin("class", this.title.toLowerCase().replace(/ /g, ""))
+    if (this.kind) {
+      adToken.attrJoin("class", this.kind)
     }
     newTokens.push(adToken)
 
@@ -74,42 +75,52 @@ export class Admonition extends BaseAdmonition {
 
 export class Attention extends BaseAdmonition {
   public title = "Attention"
+  public kind = "attention"
 }
 
 export class Caution extends BaseAdmonition {
   public title = "Caution"
+  public kind = "caution"
 }
 
 export class Danger extends BaseAdmonition {
   public title = "Danger"
+  public kind = "danger"
 }
 
 export class Error extends BaseAdmonition {
   public title = "Error"
+  public kind = "error"
 }
 
 export class Important extends BaseAdmonition {
   public title = "Important"
+  public kind = "important"
 }
 
 export class Hint extends BaseAdmonition {
   public title = "Hint"
+  public kind = "hint"
 }
 
 export class Note extends BaseAdmonition {
   public title = "Note"
+  public kind = "note"
 }
 
 export class SeeAlso extends BaseAdmonition {
   public title = "See Also"
+  public kind = "seealso"
 }
 
 export class Tip extends BaseAdmonition {
   public title = "Tip"
+  public kind = "tip"
 }
 
 export class Warning extends BaseAdmonition {
   public title = "Warning"
+  public kind = "warning"
 }
 
 export const admonitions = {

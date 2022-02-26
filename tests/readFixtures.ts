@@ -26,6 +26,6 @@ export function basicMathRenderer(mdit: MarkdownIt): void {
       token.meta?.label ? ` id="${token.meta.label}"` : ""
     }${
       token.meta?.number ? ` number="${token.meta.number}"` : ""
-    }>\n${token.content.trimRight()}\n</div>\n`
+    }>\n${token.content.trimEnd()}\n</div>\n`
   }
 }

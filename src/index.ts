@@ -1,15 +1,19 @@
 import type MarkdownIt from "markdown-it/lib"
-import { rolesDefault, Role, rolePlugin, IRoleOptions } from "./roles"
+import { rolesDefault, Role, rolePlugin, IRoleOptions, IRoleData } from "./roles"
 import {
   directivesDefault,
   Directive,
   directivePlugin,
-  IDirectiveOptions
+  directiveOptions,
+  IDirectiveOptions,
+  IDirectiveData
 } from "./directives"
 import statePlugin from "./state/plugin"
 
 export { rolesDefault, rolePlugin, Role }
-export { directivesDefault, directivePlugin, Directive }
+export { directivesDefault, directivePlugin, Directive, directiveOptions }
+
+export type { IRoleData, IRoleOptions, IDirectiveData, IDirectiveOptions }
 
 /** Allowed options for docutils plugin */
 export interface IOptions extends IDirectiveOptions, IRoleOptions {
