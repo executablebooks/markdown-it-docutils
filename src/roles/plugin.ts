@@ -78,6 +78,7 @@ function runRoles(roles: {
               const role = new roles[child.meta.name](state)
               const roleOpen = new state.Token("parsed_role_open", "", 1)
               roleOpen.content = child.content
+              roleOpen.hidden = true
               roleOpen.meta = { name: child.meta.name }
               roleOpen.block = false
               const newTokens = [roleOpen]
@@ -89,6 +90,7 @@ function runRoles(roles: {
               )
               const roleClose = new state.Token("parsed_role_close", "", -1)
               roleClose.block = false
+              roleClose.hidden = true
               newTokens.push(roleClose)
               childTokens.push(...newTokens)
             } catch (err) {

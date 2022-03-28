@@ -59,6 +59,7 @@ function runDirectives(directives: {
           )
           const directiveOpen = new state.Token("parsed_directive_open", "", 1)
           directiveOpen.info = token.info
+          directiveOpen.hidden = true
           directiveOpen.content = content.join("\n").trim()
           directiveOpen.meta = {
             arg: token.meta.arg,
@@ -67,6 +68,7 @@ function runDirectives(directives: {
           const newTokens = [directiveOpen]
           newTokens.push(...directive.run(data))
           const directiveClose = new state.Token("parsed_directive_close", "", -1)
+          directiveClose.hidden = true
           newTokens.push(directiveClose)
           // Ensure `meta` exists and add the directive options to parsed child
           newTokens[1].meta = {
