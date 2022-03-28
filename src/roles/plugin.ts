@@ -52,6 +52,7 @@ function roleRule(state: StateInline, silent: boolean): boolean {
 }
 
 // MyST role syntax format e.g. {role}`text`
+// TODO: support role with no value e.g. {role}``
 let _x: RegExp
 try {
   _x = new RegExp("^\\{([a-zA-Z_\\-+:]{1,36})\\}(`+)(?!`)(.+?)(?<!`)\\2(?!`)")
@@ -75,10 +76,20 @@ function runRoles(roles: {
           if (child.type === "role" && child.meta?.name in roles) {
             try {
               const role = new roles[child.meta.name](state)
-              const newTokens = role.run({
-                parentMap: token.map,
-                content: child.content
-              })
+              const roleOpen = new state.Token("parsed_role_open", "", 1)
+              roleOpen.content = child.content
+              roleOpen.meta = { name: child.meta.name }
+              roleOpen.block = false
+              const newTokens = [roleOpen]
+              newTokens.push(
+                ...role.run({
+                  parentMap: token.map,
+                  content: child.content
+                })
+              )
+              const roleClose = new state.Token("parsed_role_close", "", -1)
+              roleClose.block = false
+              newTokens.push(roleClose)
               childTokens.push(...newTokens)
             } catch (err) {
               const errorToken = new state.Token("role_error", "", 0)

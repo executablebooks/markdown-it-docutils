@@ -1,6 +1,6 @@
 import type MarkdownIt from "markdown-it/lib"
 import type StateCore from "markdown-it/lib/rules_core/state_core"
-import directiveToData, { Directive } from "./main"
+import directiveToData, { Directive, parseDirectiveOptions } from "./main"
 import { IOptions } from "./types"
 
 export default function directivePlugin(md: MarkdownIt, options: IOptions): void {
@@ -53,12 +53,26 @@ function runDirectives(directives: {
         try {
           const directive = new directives[token.info](state)
           const data = directiveToData(token, directive)
-          const newTokens = directive.run(data)
-          // Ensure `meta` exists and add the directive options
-          newTokens[0].meta = {
+          const [content, opts] = parseDirectiveOptions(
+            token.content.trim() ? token.content.split(/\r?\n/) : [],
+            directive
+          )
+          const directiveOpen = new state.Token("parsed_directive_open", "", 1)
+          directiveOpen.info = token.info
+          directiveOpen.content = content.join("\n").trim()
+          directiveOpen.meta = {
+            arg: token.meta.arg,
+            opts
+          }
+          const newTokens = [directiveOpen]
+          newTokens.push(...directive.run(data))
+          const directiveClose = new state.Token("parsed_directive_close", "", -1)
+          newTokens.push(directiveClose)
+          // Ensure `meta` exists and add the directive options to parsed child
+          newTokens[1].meta = {
             directive: true,
             ...data.options,
-            ...newTokens[0].meta
+            ...newTokens[1].meta
           }
           finalTokens.push(...newTokens)
         } catch (err) {
