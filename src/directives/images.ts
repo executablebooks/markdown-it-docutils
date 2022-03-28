@@ -121,7 +121,11 @@ export class Figure extends Image {
     const imageToken = this.create_image(data)
     imageToken.map = [data.map[0], data.map[0]]
     let captionTokens: Token[] = []
+    let legendTokens: Token[] = []
     if (data.body) {
+      const [caption, ...legendParts] = data.body.split("\n\n")
+      const legend = legendParts.join("\n\n")
+      const captionMap = data.bodyMap[0]
       const openCaption = this.createToken("figure_caption_open", "figcaption", 1, {
         block: true
       })
@@ -130,14 +134,25 @@ export class Figure extends Image {
       }
       // TODO in docutils caption can only be single paragraph (or ignored if comment)
       // then additional content is figure legend
-      const captionBody = this.nestedParse(data.body, data.bodyMap[0])
+      const captionBody = this.nestedParse(caption, captionMap)
       const closeCaption = this.createToken("figure_caption_close", "figcaption", -1, {
         block: true
       })
       captionTokens = [openCaption, ...captionBody, closeCaption]
+      if (legend) {
+        const legendMap = captionMap + caption.split("\n").length + 1
+        const openLegend = this.createToken("figure_legend_open", "", 1, {
+          block: true
+        })
+        const legendBody = this.nestedParse(legend, legendMap)
+        const closeLegend = this.createToken("figure_legend_close", "", -1, {
+          block: true
+        })
+        legendTokens = [openLegend, ...legendBody, closeLegend]
+      }
     }
     const closeToken = this.createToken("figure_close", "figure", -1, { block: true })
-    return [openToken, imageToken, ...captionTokens, closeToken]
+    return [openToken, imageToken, ...captionTokens, ...legendTokens, closeToken]
   }
 }
 
