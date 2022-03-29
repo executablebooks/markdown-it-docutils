@@ -213,7 +213,7 @@ export default function directiveToData(
   }
 }
 
-function parseDirectiveOptions(
+export function parseDirectiveOptions(
   content: string[],
   fullSpec: IDirectiveSpec
 ): [string[], { [key: string]: any }, number] {

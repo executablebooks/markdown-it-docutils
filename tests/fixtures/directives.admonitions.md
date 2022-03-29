@@ -57,6 +57,7 @@ nested-admonition
 <aside class="admonition note">
 <header class="admonition-title">Note</header>
 <p>This is a note</p>
+
 <aside class="admonition warning">
 <header class="admonition-title">Warning</header>
 <p>This is a nested warning</p>

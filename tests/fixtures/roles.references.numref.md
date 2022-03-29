@@ -30,12 +30,14 @@ The reference to {ref}`test3` and {ref}`test4`.
 <p>Fig 1</p>
 </figcaption>
 </figure>
+
 <figure id="test4" class="numbered">
 <img src="https://via.placeholder.com/150" alt="">
 <figcaption number="2">
 <p>Fig 2</p>
 </figcaption>
 </figure>
+
 <p>The reference to <a href="#test3" title="Fig 1">Fig 1</a> and <a href="#test4" title="Fig 2">Fig 2</a>.
 <a href="#test3" title="Fig 1">Fig 1</a>
 <a href="#test4" title="Fig 2">Fig 2</a>
