@@ -9,6 +9,7 @@ import {
   IDirectiveData
 } from "./directives"
 import statePlugin from "./state/plugin"
+import { colonFencePlugin } from "./colonFence"
 
 export { rolesDefault, rolePlugin, Role }
 export { directivesDefault, directivePlugin, Directive, directiveOptions }
@@ -18,11 +19,13 @@ export type { IRoleData, IRoleOptions, IDirectiveData, IDirectiveOptions }
 /** Allowed options for docutils plugin */
 export interface IOptions extends IDirectiveOptions, IRoleOptions {
   // TODO new token render rules
+  colonFences: boolean
 }
 
 /** Default options for docutils plugin */
 const OptionDefaults: IOptions = {
   parseRoles: true,
+  colonFences: true,
   replaceFences: true,
   rolesAfter: "inline",
   directivesAfter: "block",
@@ -36,6 +39,7 @@ const OptionDefaults: IOptions = {
 export function docutilsPlugin(md: MarkdownIt, options?: IOptions): void {
   const fullOptions = { ...OptionDefaults, ...options }
 
+  if (fullOptions.colonFences) md.use(colonFencePlugin)
   md.use(rolePlugin, fullOptions)
   md.use(directivePlugin, fullOptions)
   md.use(statePlugin, fullOptions)

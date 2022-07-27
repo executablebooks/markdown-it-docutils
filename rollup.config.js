@@ -3,6 +3,7 @@ import commonjs from "@rollup/plugin-commonjs"
 import babel from "@rollup/plugin-babel"
 import resolve from "@rollup/plugin-node-resolve"
 import { terser } from "rollup-plugin-terser"
+import json from "@rollup/plugin-json"
 
 export default {
   input: "src/index.ts",
@@ -10,7 +11,8 @@ export default {
     typescript(), // Integration between Rollup and Typescript
     commonjs(), // Convert CommonJS modules to ES6
     babel({ babelHelpers: "bundled" }), // transpile ES6/7 code
-    resolve() // resolve third party modules in node_modules
+    resolve(), // resolve third party modules in node_modules
+    json()
   ],
   output: [
     {
