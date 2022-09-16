@@ -53,7 +53,7 @@ function runDirectives(directives: {
         try {
           const directive = new directives[token.info](state)
           const data = directiveToData(token, directive)
-          const [content, opts] = parseDirectiveOptions(
+          const [content] = parseDirectiveOptions(
             token.content.trim() ? token.content.split(/\r?\n/) : [],
             directive
           )
@@ -63,19 +63,13 @@ function runDirectives(directives: {
           directiveOpen.content = content.join("\n").trim()
           directiveOpen.meta = {
             arg: token.meta.arg,
-            opts
+            opts: data.options
           }
           const newTokens = [directiveOpen]
           newTokens.push(...directive.run(data))
           const directiveClose = new state.Token("parsed_directive_close", "", -1)
           directiveClose.hidden = true
           newTokens.push(directiveClose)
-          // Ensure `meta` exists and add the directive options to parsed child
-          newTokens[1].meta = {
-            directive: true,
-            ...data.options,
-            ...newTokens[1].meta
-          }
           finalTokens.push(...newTokens)
         } catch (err) {
           const errorToken = new state.Token("directive_error", "", 0)

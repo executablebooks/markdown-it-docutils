@@ -38,6 +38,18 @@ export class Code extends Directive {
       content: data.body,
       map: data.bodyMap
     })
+    if (data.options["number-lines"]) {
+      token.attrSet("number-lines", data.options["number-lines"])
+    }
+    if (data.options.force) {
+      token.attrSet("force", data.options.force)
+    }
+    if (data.options.name) {
+      token.attrSet("name", data.options.name)
+    }
+    if (data.options.class) {
+      token.attrJoin("class", data.options.class.join(" "))
+    }
     return [token]
   }
 }
@@ -77,6 +89,31 @@ export class CodeBlock extends Directive {
       content: data.body,
       map: data.bodyMap
     })
+    if (data.options.linenos === null) {
+      token.attrSet("linenos", "true")
+    }
+    if (data.options["lineno-start"]) {
+      token.attrSet("lineno-start", data.options["lineno-start"])
+    }
+    if (data.options.dedent) {
+      token.attrSet("dedent", data.options.dedent)
+    }
+    if (data.options["emphasize-lines"]) {
+      token.attrSet("emphasize-lines", data.options["emphasize-lines"])
+    }
+    if (data.options.caption) {
+      token.attrSet("caption", data.options.caption)
+    }
+    if (data.options.force) {
+      token.attrSet("force", data.options.force)
+    }
+    if (data.options.name) {
+      token.attrSet("name", data.options.name)
+    }
+    if (data.options.class) {
+      token.attrJoin("class", data.options.class.join(" "))
+    }
+
     return [token]
   }
 }
