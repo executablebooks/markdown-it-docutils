@@ -10,6 +10,7 @@ import { Directive, IDirectiveData } from "./main"
  * Apdapted from: docutils/docutils/parsers/rst/directives/admonitions.py
  */
 class BaseAdmonition extends Directive {
+  public optional_arguments = 1
   public final_argument_whitespace = true
   public has_content = true
   public option_spec = {
