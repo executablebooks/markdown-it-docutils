@@ -46,7 +46,7 @@ class BaseAdmonition extends Directive {
     newTokens.push(adTokenTitle)
 
     // we want the title to be parsed as Markdown during the inline phase
-    const title = data.args[0] || this.title
+    const title = data.args.join(' ') || this.title
     newTokens.push(
       this.createToken("inline", "", 0, {
         map: [data.map[0], data.map[0]],
